@@ -10,7 +10,7 @@ Retain the proven PCDS tracker shell while changing the content model from proje
 2. Four-column summary strip for pillars, actions, initiatives, and roadmap phases
 3. Search, pillar, and roadmap-phase controls
 4. Expandable initiative cards
-5. Baseline boundary and methodology footer
+5. Hero-aligned product summary, methodology navigation, and independent attribution footer
 
 ## Cards
 
@@ -45,6 +45,8 @@ The expanded card keeps the horizon and timeline in the persistent header, then 
 - Preserve visible focus states, reduced-motion support, and keyboard-accessible expansion.
 - Keep filters compact and usable at 320px without clipped labels or horizontal page overflow.
 - Use badges for Blueprint taxonomy, not delivery status or decorative gamification.
+- Count summary values into place on initial load, while exposing final totals to assistive technology and bypassing animation for reduced-motion preferences.
+- Reset a refreshed page to the top using the same explicit reload-scroll handling as the PCDS tracker.
 
 ## Language
 

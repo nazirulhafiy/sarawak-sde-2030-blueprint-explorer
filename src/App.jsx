@@ -95,7 +95,7 @@ function displayDate(value, language) {
     language === "ms" ? "ms-MY" : "en-MY",
     monthOnly
       ? { month: "short", year: "numeric", timeZone: "UTC" }
-      : { dateStyle: "medium", timeZone: "UTC" },
+      : { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" },
   ).format(parsed);
 }
 
@@ -238,6 +238,60 @@ function InitiativeCard({
   );
 }
 
+function useCountUp(target, duration = 1400) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (
+      !Number.isFinite(target) ||
+      target === 0 ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      const frameId = window.requestAnimationFrame(() => {
+        setDisplayValue(Number.isFinite(target) ? target : 0);
+      });
+      return () => window.cancelAnimationFrame(frameId);
+    }
+
+    let frameId = null;
+    let startTime = null;
+    const animate = (timestamp) => {
+      if (startTime === null) {
+        startTime = timestamp;
+      }
+
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(Math.round(target * easedProgress));
+
+      if (progress < 1) {
+        frameId = window.requestAnimationFrame(animate);
+      }
+    };
+
+    frameId = window.requestAnimationFrame(animate);
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
+  }, [duration, target]);
+
+  return displayValue;
+}
+
+function AnimatedMetricNumber({ value }) {
+  const displayValue = useCountUp(value);
+
+  return (
+    <>
+      <span className="summary-metric-value" aria-hidden="true">{displayValue}</span>
+      <span className="visually-hidden">{value}</span>
+    </>
+  );
+}
+
 function SummaryMetrics({ copy }) {
   const metrics = [
     [BLUEPRINT_META.pillars, copy.metrics.pillars],
@@ -248,7 +302,7 @@ function SummaryMetrics({ copy }) {
   return (
     <section className="summary-metrics" aria-label={copy.metrics.label}>
       {metrics.map(([value, label]) => (
-        <div key={label}><strong>{value}</strong><span>{label}</span></div>
+        <div key={label}><strong><AnimatedMetricNumber value={value} /></strong><span>{label}</span></div>
       ))}
     </section>
   );

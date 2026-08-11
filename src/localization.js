@@ -30,7 +30,7 @@ const EN = {
       "Initiatives under Sarawak's Digital Economy Blueprint 2030, in one place.",
     baselineNotice:
       "An independent explorer with original targets, timelines and lead agencies.",
-    baselineRelease: "Dataset prepared:",
+    baselineRelease: "Last updated:",
   },
   metrics: {
     label: "Blueprint summary",
@@ -79,11 +79,9 @@ const EN = {
     explore: "Explore",
     tracker: "Blueprint explorer",
     methodologyLink: "Baseline & methodology",
-    methodologyNote:
-      "The 2023 Blueprint is the baseline source for the original hierarchy, initiatives, targets, timelines and lead agencies shown here.",
     contact: "Contact",
     independent:
-      "Built independently by hafiy.my. Not affiliated with the Sarawak Government.",
+      "Built by hafiy.my, an independent explorer. Not affiliated with the Sarawak Government.",
   },
   accessibility: {
     ...shared.accessibility,
@@ -138,7 +136,7 @@ const MS = {
     intro: "Inisiatif di bawah Blueprint Ekonomi Digital Sarawak 2030, di satu tempat.",
     baselineNotice:
       "Peneroka bebas dengan sasaran, garis masa asal dan agensi peneraju.",
-    baselineRelease: "Set data disediakan:",
+    baselineRelease: "Kemas kini terakhir:",
   },
   metrics: {
     label: "Ringkasan Blueprint",
@@ -191,11 +189,9 @@ const MS = {
     explore: "Terokai",
     tracker: "Peneroka Blueprint",
     methodologyLink: "Asas & metodologi",
-    methodologyNote:
-      "Blueprint 2023 ialah sumber asas bagi hierarki, inisiatif, sasaran, garis masa asal dan agensi peneraju yang dipaparkan di sini.",
     contact: "Hubungi",
     independent:
-      "Dibina secara bebas oleh hafiy.my. Tidak berafiliasi dengan Kerajaan Sarawak.",
+      "Dibina oleh hafiy.my sebagai peneroka bebas. Tidak berafiliasi dengan Kerajaan Sarawak.",
   },
   accessibility: {
     environment: (name) => `persekitaran ${name}`,
