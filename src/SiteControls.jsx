@@ -176,11 +176,11 @@ export function ThemeToggle({ onThemeToggle, copy }) {
       title={next === "dark" ? copy.themeToggle.switchToDark : copy.themeToggle.switchToLight}
     >
       <svg className="theme-icon-morph" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24">
-        <mask id="sdb-theme-toggle-moon-mask">
+        <mask id="sde-theme-toggle-moon-mask">
           <rect width="24" height="24" fill="#fff" />
           <circle className="theme-icon-hole" cx="17" cy="7" r="7" fill="#000" />
         </mask>
-        <circle className="theme-icon-core" cx="12" cy="12" r="9" mask="url(#sdb-theme-toggle-moon-mask)" />
+        <circle className="theme-icon-core" cx="12" cy="12" r="9" mask="url(#sde-theme-toggle-moon-mask)" />
         <g className="theme-icon-rays">
           <line x1="12" y1="1.6" x2="12" y2="3.8" />
           <line x1="12" y1="20.2" x2="12" y2="22.4" />

@@ -4,7 +4,7 @@
   <rect x="68" y="84" width="420" height="462" rx="34" fill="#e6f7f5" />
   <image href="../../public/favicon-production-browser.png" x="98" y="105" width="360" height="360" />
   <text x="558" y="142" fill="#52636b" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="3">SARAWAK DEVELOPMENT MONITOR</text>
-  <text x="558" y="252" fill="#17252a" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="760">SDB 2030</text>
+  <text x="558" y="252" fill="#17252a" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="760">SDE 2030</text>
   <text x="558" y="328" fill="#17252a" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="760">Blueprint Explorer</text>
   <rect x="558" y="377" width="86" height="6" rx="3" fill="#14b8a6" />
   <text x="558" y="431" fill="#52636b" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="500">Pillars  •  Actions  •  Initiatives</text>

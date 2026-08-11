@@ -16,7 +16,7 @@ import { build } from "vite";
 const mode = process.argv[2] || "production";
 const projectRoot = resolve(".");
 const distIndexPath = resolve("dist/index.html");
-const serverOutDir = await mkdtemp(join(tmpdir(), "sdb2030-explorer-prerender-"));
+const serverOutDir = await mkdtemp(join(tmpdir(), "sde-tracker-prerender-"));
 const productionOrigin = "https://sdb2030.com";
 const socialOrigin =
   mode === "preview" ? "https://preview.sdb2030.com" : productionOrigin;

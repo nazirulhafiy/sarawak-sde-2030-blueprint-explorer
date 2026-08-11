@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 
 const publicDir = resolve("public");
-const masterPath = resolve("assets/brand/sdb-favicon-master-imagegen-v1.png");
+const masterPath = resolve("assets/brand/sde-favicon-master-imagegen-v1.png");
 const smallIconSizes = [16, 32, 48];
 const environments = [
   { name: "production", color: "#3155c6" },
@@ -311,4 +311,4 @@ for (const environment of environments) {
   }
 }
 
-console.log("Generated cobalt SDB favicons for Production, Preview, and Development.");
+console.log("Generated cobalt SDE favicons for Production, Preview, and Development.");

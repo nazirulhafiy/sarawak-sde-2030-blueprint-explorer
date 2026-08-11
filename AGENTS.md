@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This repository is the independent SDB 2030 Blueprint Explorer, a Vite and React static site based on the proven PCDS 2030 tracker shell.
+This repository is the independent SDE 2030 Blueprint Explorer, a Vite and React static site based on the proven PCDS 2030 tracker shell.
 
 ## Working Rules
 

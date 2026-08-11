@@ -308,7 +308,7 @@ export default function App({ language, onNavigate, headingRef }) {
   const filterIndexDenominator = Math.max(visible.length - 1, 1);
   const toggleTheme = (theme) => {
     applyDocumentTheme(theme);
-    try { localStorage.setItem("sdb-theme", theme); } catch { /* Session theme remains active. */ }
+    try { localStorage.setItem("sde-theme", theme); } catch { /* Session theme remains active. */ }
   };
 
   return (
