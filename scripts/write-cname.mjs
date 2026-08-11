@@ -3,8 +3,8 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const domains = {
-  preview: "preview.sdb2030.com",
-  production: "sdb2030.com",
+  preview: "preview.sde2030.com",
+  production: "sde2030.com",
 };
 
 const environment = process.argv[2] || "production";

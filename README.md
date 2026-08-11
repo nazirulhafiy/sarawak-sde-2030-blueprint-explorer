@@ -24,7 +24,7 @@ npm run build:local
 npm run preview:start
 ```
 
-The preview command reports its selected port. In the current local session it is available at `http://127.0.0.1:4175/` because port 4174 is already in use.
+The preview command reports its selected local port.
 
 ## Routes
 
@@ -41,4 +41,8 @@ The user-supplied 2023 Blueprint PDF is the immutable baseline source. It establ
 
 This is a static Vite and React app adapted from the PCDS 2030 tracker shell. It has no backend, account system, or database. The canonical Blueprint baseline lives in `src/blueprintData.js`; deferred implementation research remains in `src/implementationData.js` without appearing in the public interface.
 
-No domain, deployment, or remote repository is configured as part of the local stages.
+## Publishing
+
+Production is built from `main` by GitHub Actions and published through GitHub Pages at [sde2030.com](https://sde2030.com). Cloudflare manages the domain and DNS.
+
+The production workflow runs the content validator and linter before building and prerendering all four public routes into `dist`.

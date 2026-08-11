@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sdb2030.com/sitemap.xml
+Sitemap: https://sde2030.com/sitemap.xml

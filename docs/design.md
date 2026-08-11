@@ -52,4 +52,4 @@ Translate interface controls and explanations into BM. Keep canonical source-der
 
 ## Environments
 
-Stage 1 is local only. The intended future canonical domain is `sdb2030.com`, but domain purchase, DNS, preview hosting, and production deployment are outside the current scope.
+Production is published from `main` through GitHub Pages at `sde2030.com`. Cloudflare remains the registrar and DNS provider. Preview deployments may use `preview.sde2030.com` when a dedicated Preview workflow is introduced.
