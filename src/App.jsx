@@ -270,6 +270,21 @@ export default function App({ language, onNavigate, headingRef }) {
     if (filterEnterTimerRef.current) window.clearTimeout(filterEnterTimerRef.current);
   }, []);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const useKeyboardFocus = () => { root.dataset.filterInputModality = "keyboard"; };
+    const usePointerFocus = () => { root.dataset.filterInputModality = "pointer"; };
+
+    window.addEventListener("keydown", useKeyboardFocus, true);
+    window.addEventListener("pointerdown", usePointerFocus, true);
+
+    return () => {
+      window.removeEventListener("keydown", useKeyboardFocus, true);
+      window.removeEventListener("pointerdown", usePointerFocus, true);
+      delete root.dataset.filterInputModality;
+    };
+  }, []);
+
   const transitionFilter = (updateFilter) => {
     if (filterExitTimerRef.current) window.clearTimeout(filterExitTimerRef.current);
     if (filterEnterTimerRef.current) window.clearTimeout(filterEnterTimerRef.current);
@@ -352,11 +367,23 @@ export default function App({ language, onNavigate, headingRef }) {
         <SummaryMetrics copy={copy} />
 
         <section className="filters" aria-label={copy.filters.label}>
-          <label>{copy.filters.search}<input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy.filters.searchPlaceholder} /></label>
-          <label>{copy.filters.pillar}<select value={pillar} onChange={(event) => { const nextPillar = event.target.value; transitionFilter(() => setPillar(nextPillar)); }}><option value="all">{copy.filters.allPillars}</option>{BLUEPRINT_PILLARS.map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>
-          <label>
-            {copy.filters.roadmapPhase}
-            <select value={roadmapPhase} onChange={(event) => { const nextRoadmapPhase = event.target.value; transitionFilter(() => setRoadmapPhase(nextRoadmapPhase)); }}>
+          <label className="filter-search">
+            <span className="visually-hidden">{copy.filters.search}</span>
+            <svg className="filter-search-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="6.5" />
+              <path d="m16 16 4.25 4.25" />
+            </svg>
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy.filters.searchPlaceholder} />
+          </label>
+          <label className="filter-select filter-select--pillar">
+            <span className="visually-hidden">{copy.filters.pillar}</span>
+            {pillar === "all" && <span className="filter-select-placeholder" aria-hidden="true">{copy.filters.pillar}</span>}
+            <select className={pillar === "all" ? "filter-select-native filter-select-native--placeholder" : "filter-select-native"} value={pillar} onChange={(event) => { const nextPillar = event.target.value; transitionFilter(() => setPillar(nextPillar)); }}><option value="all">{copy.filters.allPillars}</option>{BLUEPRINT_PILLARS.map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select>
+          </label>
+          <label className="filter-select filter-select--roadmap">
+            <span className="visually-hidden">{copy.filters.roadmapPhase}</span>
+            {roadmapPhase === "all" && <span className="filter-select-placeholder" aria-hidden="true">{copy.filters.phase}</span>}
+            <select className={roadmapPhase === "all" ? "filter-select-native filter-select-native--placeholder" : "filter-select-native"} value={roadmapPhase} onChange={(event) => { const nextRoadmapPhase = event.target.value; transitionFilter(() => setRoadmapPhase(nextRoadmapPhase)); }}>
               <option value="all">{copy.filters.allRoadmapPhases}</option>
               {ROADMAP_PHASES.map((phase, index) => (
                 <option key={phase.year} value={ROADMAP_PHASE_HORIZONS[index]}>
