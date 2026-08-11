@@ -1,0 +1,43 @@
+import { StrictMode } from 'react'
+import { createRoot, hydrateRoot } from 'react-dom/client'
+import './index.css'
+import Site from './Site.jsx'
+import { resolveRoute } from './routes.js'
+
+const navigationEntry = window.performance.getEntriesByType('navigation')[0]
+
+if (navigationEntry?.type === 'reload') {
+  const resetScroll = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }
+
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual'
+  }
+
+  resetScroll()
+  window.addEventListener('pageshow', () => {
+    resetScroll()
+    window.requestAnimationFrame(() => {
+      resetScroll()
+
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'auto'
+      }
+    })
+  }, { once: true })
+}
+
+const container = document.getElementById('root')
+const route = resolveRoute(window.location.pathname, import.meta.env.BASE_URL)
+const app = (
+  <StrictMode>
+    <Site route={route} />
+  </StrictMode>
+)
+
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app)
+} else {
+  createRoot(container).render(app)
+}

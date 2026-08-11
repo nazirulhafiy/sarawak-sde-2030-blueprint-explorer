@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-%MODE%-browser.png?v=20260810sdb1" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-%MODE%-browser-48x48.png?v=20260810sdb1" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-%MODE%-browser-32x32.png?v=20260810sdb1" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-%MODE%-browser-16x16.png?v=20260810sdb1" />
+    <link rel="icon" href="/favicon-%MODE%-browser.ico?v=20260810sdb1" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-%MODE%.png?v=20260810sdb1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("sdb-theme");
+          const theme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : "light";
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+          document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#121212" : "#ffffff";
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <title>SDE 2030 Blueprint Explorer</title>
+    <meta name="description" content="Explore the 106 initiatives, 31 strategic actions, five pillars, and roadmap targets in the Sarawak Digital Economy Blueprint 2030." />
+    <link rel="canonical" href="https://sdb2030.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_MY" />
+    <meta property="og:locale:alternate" content="ms_MY" />
+    <meta property="og:site_name" content="SDE 2030 Blueprint Explorer" />
+    <meta property="og:title" content="SDE 2030 Blueprint Explorer" />
+    <meta property="og:description" content="Explore the 106 initiatives, 31 strategic actions, five pillars, and roadmap targets in the Sarawak Digital Economy Blueprint 2030." />
+    <meta property="og:url" content="https://sdb2030.com/" />
+    <meta property="og:image" content="https://sdb2030.com/social-preview-%MODE%.png?v=20260810a" />
+    <meta property="og:image:secure_url" content="https://sdb2030.com/social-preview-%MODE%.png?v=20260810a" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SDE 2030 Blueprint Explorer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SDE 2030 Blueprint Explorer" />
+    <meta name="twitter:description" content="Explore the 106 initiatives, 31 strategic actions, five pillars, and roadmap targets in the Sarawak Digital Economy Blueprint 2030." />
+    <meta name="twitter:image" content="https://sdb2030.com/social-preview-%MODE%.png?v=20260810a" />
+    <meta name="twitter:image:alt" content="SDE 2030 Blueprint Explorer" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "SDE 2030 Blueprint Explorer",
+        "alternateName": ["Sarawak Digital Economy Blueprint 2030 Explorer", "Peneroka Blueprint SDE 2030"],
+        "url": "https://sdb2030.com/",
+        "description": "An independent explorer of the Sarawak Digital Economy Blueprint 2030, including its pillars, strategic actions, initiatives, original targets and timelines.",
+        "inLanguage": ["en-MY", "ms-MY"]
+      }
+    </script>
+  </head>
+  <body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

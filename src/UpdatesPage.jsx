@@ -1,0 +1,7 @@
+import { getAppEnvironment } from "./environment.js";
+import { getUiCopy } from "./localization.js";
+import { getRouteHref } from "./routes.js";
+import { EnvironmentBadge, LanguageToggle, NavigationPillLink, ThemeToggle } from "./SiteControls.jsx";
+import SiteFooter from "./SiteFooter.jsx";
+import { applyDocumentTheme } from "./theme.js";
+export default function UpdatesPage({ language, onNavigate, headingRef }) { const copy = getUiCopy(language); const tracker = language === "ms" ? "tracker-ms" : "tracker-en"; return <div className="app-shell"><main className="methodology-main"><header className="explorer-header"><div className="header-controls"><NavigationPillLink href={getRouteHref(tracker)} onClick={(event) => onNavigate(event, tracker)}>← {copy.methodologyPage.back}</NavigationPillLink><LanguageToggle copy={copy} englishRouteId="updates" language={language} malayRouteId="updates-ms" onNavigate={onNavigate}/><ThemeToggle copy={copy} onThemeToggle={(next) => applyDocumentTheme(next)}/></div><p className="tracker-kicker">Sarawak Development Monitor</p><h1 className="page-heading" ref={headingRef} tabIndex={-1}>{copy.methodologyPage.title}</h1><p className="explorer-intro">{copy.methodologyPage.intro}</p></header><section className="methodology-sections">{copy.methodologyPage.sections.map(([title, text]) => <article key={title}><h2>{title}</h2><p>{text}</p></article>)}</section><SiteFooter copy={copy} currentPage="updates" language={language} onNavigate={onNavigate}/></main><EnvironmentBadge environment={getAppEnvironment()} copy={copy}/></div>; }

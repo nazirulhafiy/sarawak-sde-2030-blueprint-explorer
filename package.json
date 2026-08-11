@@ -1,0 +1,35 @@
+{
+  "name": "sdb2030-blueprint-explorer",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:local",
+    "build:local": "vite build && node scripts/prerender.mjs development",
+    "build:preview": "vite build --mode preview && node scripts/prerender.mjs preview",
+    "build:production": "vite build && node scripts/prerender.mjs production && node scripts/write-cname.mjs production",
+    "check:content": "node scripts/validate-blueprint-data.mjs",
+    "icons:generate": "node scripts/generate-environment-favicons.mjs",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "preview:start": "node scripts/local-preview.mjs start",
+    "preview:stop": "node scripts/local-preview.mjs stop",
+    "preview:status": "node scripts/local-preview.mjs status"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.4.0",
+    "vite": "^8.0.1"
+  }
+}
