@@ -1225,8 +1225,6 @@ html[data-filter-input-modality="keyboard"] .filters:has(.filter-search:focus-wi
 @media (max-width: 420px) {
   .explorer-main,
   .methodology-main { padding-inline: 16px; }
-  .header-meta-row { display: grid; }
-  .header-controls { justify-self: end; }
   .summary-metrics { grid-template-columns: 1fr 1fr; }
   .filters { grid-template-columns: 1fr; }
   .filter-search { grid-column: auto; }
