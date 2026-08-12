@@ -26,14 +26,11 @@ const website = {
   "@type": "WebSite",
   "@id": WEBSITE_ID,
   name: "SDE 2030 Blueprint Explorer",
-  alternateName: [
-    "Sarawak Digital Economy Blueprint 2030 Explorer",
-    "Peneroka Blueprint SDE 2030",
-  ],
+  alternateName: "Sarawak Digital Economy Blueprint 2030 Explorer",
   url: `${PRODUCTION_ORIGIN}/`,
   description:
     "An independent explorer of the Sarawak Digital Economy Blueprint 2030, including its pillars, strategic actions, initiatives, original targets and timelines.",
-  inLanguage: ["en-MY", "ms-MY"],
+  inLanguage: "en-MY",
 };
 
 const blueprintDataset = {

@@ -28,7 +28,7 @@
 - [ ] `npm run check:content`
 - [ ] `npm run lint`
 - [ ] `npm run build:local`
-- [ ] English and BM routes inspected
+- [ ] canonical English routes and legacy BM entry points inspected
 - [ ] light and dark themes inspected
 - [ ] keyboard expansion and filters inspected
 - [ ] 320px, 390px, tablet, and desktop widths inspected

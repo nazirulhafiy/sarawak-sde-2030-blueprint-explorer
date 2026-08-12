@@ -112,7 +112,7 @@ const EN = {
       ],
       [
         "Language boundary",
-        "Interface controls are available in English and Bahasa Melayu. Canonical Blueprint wording remains in English until reviewed translations are available.",
+        "The public interface is currently available in English only. Bahasa Melayu will return after its reader-facing copy and route metadata have been reviewed.",
       ],
     ],
   },

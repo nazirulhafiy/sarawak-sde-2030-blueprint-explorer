@@ -50,7 +50,7 @@ The expanded card keeps the horizon and timeline in the persistent header, then 
 
 ## Language
 
-Translate interface controls and explanations into BM. Keep canonical source-derived initiative text in English until reviewed translations exist, and explain that boundary on the BM route.
+The current public interface is English-only and does not show a language toggle. Previous BM entry points temporarily render the English experience with English canonical metadata. Restore BM only after its interface copy and route metadata have been reviewed; canonical source-derived initiative text must remain in English until reviewed translations exist.
 
 ## Environments
 

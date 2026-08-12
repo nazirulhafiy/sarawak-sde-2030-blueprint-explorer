@@ -32,7 +32,7 @@ function escapeHtml(value) {
 }
 
 function getCanonical(route) {
-  return new URL(route.path, productionOrigin).href;
+  return new URL(route.canonicalPath || route.path, productionOrigin).href;
 }
 
 function applyRouteMetadata(template, route, allRoutes, getStructuredData) {

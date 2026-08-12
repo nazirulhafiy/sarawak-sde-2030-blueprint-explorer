@@ -194,14 +194,14 @@ try {
   const lastModified = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map(
     (match) => match[1]
   );
-  const expectedLocations = STATIC_ROUTES.map(getRouteCanonical);
+  const expectedLocations = [...new Set(STATIC_ROUTES.map(getRouteCanonical))];
 
   assert(
     JSON.stringify(locations) === JSON.stringify(expectedLocations),
     "sitemap.xml routes do not match the prerendered route registry."
   );
   assert(
-    lastModified.length === STATIC_ROUTES.length &&
+    lastModified.length === expectedLocations.length &&
       lastModified.every((value) => value === LAST_UPDATED),
     "sitemap.xml lastmod values do not match the dataset freshness date."
   );

@@ -19,7 +19,7 @@ The complete Blueprint baseline is the current product. Implementation evidence 
 - expandable initiative cards
 - five colour-coded, interactive pillar pills in the same card-header role as the PCDS tracker's Sector and Enabler pills
 - original objectives, descriptions, intended outcomes, targets, timelines, and lead agencies
-- English and BM interface routes
+- English interface routes, with previous BM entry points temporarily serving the English experience
 - baseline and methodology route explaining the evidence boundary
 - static pre-rendering, direct routes, theme control, and responsive layouts
 - route-specific search metadata, reciprocal English/BM language alternates, structured data, and a validated sitemap
@@ -43,4 +43,5 @@ The complete Blueprint baseline is the current product. Implementation evidence 
 
 1. Complete Blueprint Explorer with all 106 initiatives.
 2. Refine the baseline explorer and its Blueprint navigation.
-3. Consider a separate implementation tracker when reliable sources and maintenance capacity allow.
+3. Restore the BM experience after its reader-facing copy and route metadata have been reviewed.
+4. Consider a separate implementation tracker when reliable sources and maintenance capacity allow.

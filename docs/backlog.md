@@ -14,10 +14,11 @@
 
 ## Future expansion
 
+- Restore the BM experience only after all reader-facing interface and supporting copy has been reviewed. Re-enable the language toggle, BM route metadata, `hreflang` links, and sitemap entries, then complete EN/BM parity QA across both tracker and methodology routes.
 - Consider a separate implementation tracker only where maintenance capacity and evidence coverage are sustainable.
 - Add initiative permalinks and URL-backed filters.
 - Add automated source-link health checks and review reminders.
-- Consider reviewed BM translations for canonical Blueprint content.
+- Add reviewed BM translations for canonical Blueprint content before presenting the explorer as fully bilingual.
 
 ## Release boundary
 

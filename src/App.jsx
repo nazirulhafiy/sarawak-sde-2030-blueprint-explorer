@@ -10,7 +10,6 @@ import { getUiCopy } from "./localization.js";
 import { getRouteHref } from "./routes.js";
 import {
   EnvironmentBadge,
-  LanguageToggle,
   NavigationPillLink,
   PillarClassificationBadge,
   ThemeToggle,
@@ -388,13 +387,6 @@ export default function App({ language, onNavigate, headingRef }) {
           <div className="header-meta-row">
             <p className="tracker-kicker">{copy.header.kicker}</p>
             <div className="header-controls">
-              <LanguageToggle
-                copy={copy}
-                englishRouteId="tracker-en"
-                language={language}
-                malayRouteId="tracker-ms"
-                onNavigate={onNavigate}
-              />
               <ThemeToggle copy={copy} onThemeToggle={toggleTheme} />
             </div>
           </div>
