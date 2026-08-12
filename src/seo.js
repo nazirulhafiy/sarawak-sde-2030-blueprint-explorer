@@ -5,6 +5,7 @@ const PRODUCTION_ORIGIN = "https://sde2030.com";
 const WEBSITE_ID = `${PRODUCTION_ORIGIN}/#website`;
 const BLUEPRINT_ID = `${PRODUCTION_ORIGIN}/#blueprint-source`;
 const DATASET_ID = `${PRODUCTION_ORIGIN}/#blueprint-baseline`;
+const DATA_USE_URL = `${PRODUCTION_ORIGIN}/updates/#data-use`;
 
 const blueprintSource = {
   "@type": "CreativeWork",
@@ -43,6 +44,12 @@ const blueprintDataset = {
   dateModified: LAST_UPDATED,
   inLanguage: "en-MY",
   isAccessibleForFree: true,
+  creator: {
+    "@type": "Person",
+    name: "Nazirul Hafiy",
+    url: "https://hafiy.my",
+  },
+  license: DATA_USE_URL,
   isBasedOn: { "@id": BLUEPRINT_ID },
   variableMeasured: [
     "Strategic pillar",

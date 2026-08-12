@@ -170,9 +170,20 @@ for (const route of STATIC_ROUTES) {
         `${label}: Blueprint source schema is missing.`
       );
       if (route.page === "tracker") {
+        const dataset = graph?.find((node) => node["@type"] === "Dataset");
         assert(
-          graph?.some((node) => node["@type"] === "Dataset"),
+          dataset,
           `${label}: Blueprint dataset schema is missing.`
+        );
+        assert(
+          dataset?.creator?.["@type"] === "Person" &&
+            dataset?.creator?.name === "Nazirul Hafiy" &&
+            dataset?.creator?.url === "https://hafiy.my",
+          `${label}: Blueprint dataset creator is missing or incorrect.`
+        );
+        assert(
+          dataset?.license === "https://sde2030.com/updates/#data-use",
+          `${label}: Blueprint dataset license URL is missing or incorrect.`
         );
       }
     } catch (error) {

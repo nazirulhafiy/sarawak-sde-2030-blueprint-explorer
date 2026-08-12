@@ -79,6 +79,7 @@ const EN = {
     explore: "Explore",
     tracker: "Blueprint explorer",
     methodologyLink: "Baseline & methodology",
+    dataUse: "Data use",
     contact: "Contact",
     independent:
       "Built by hafiy.my, an independent explorer. Not affiliated with the Sarawak Government.",
@@ -111,8 +112,13 @@ const EN = {
         "The user-supplied 2023 Blueprint PDF is the baseline source. Later implementation evidence is not displayed in this phase of the explorer.",
       ],
       [
+        "Source and data use",
+        "The Sarawak Digital Economy Blueprint 2030 remains the work of the Sarawak Government and its named publishers. This independent explorer does not redistribute or relicense the original publication. The explorer's original dataset structure, arrangement and added metadata may be reused with attribution to “SDE 2030 Blueprint Explorer by hafiy.my” and a link to sde2030.com. Source-derived wording remains subject to the rights of its original publisher. The dataset must not be represented as official or as verified current implementation status.",
+        "data-use",
+      ],
+      [
         "Language boundary",
-        "The public interface is currently available in English only. Bahasa Melayu will return after its reader-facing copy and route metadata have been reviewed.",
+        "The public interface is currently available in English only.",
       ],
     ],
   },
@@ -189,6 +195,7 @@ const MS = {
     explore: "Terokai",
     tracker: "Peneroka Blueprint",
     methodologyLink: "Asas & metodologi",
+    dataUse: "Penggunaan data",
     contact: "Hubungi",
     independent:
       "Dibina oleh hafiy.my sebagai peneroka bebas. Tidak berafiliasi dengan Kerajaan Sarawak.",
@@ -219,6 +226,11 @@ const MS = {
       [
         "Batas sumber",
         "PDF Blueprint 2023 yang dibekalkan pengguna ialah sumber asas. Bukti pelaksanaan kemudian tidak dipaparkan dalam fasa peneroka ini.",
+      ],
+      [
+        "Sumber dan penggunaan data",
+        "Sarawak Digital Economy Blueprint 2030 kekal sebagai karya Kerajaan Sarawak dan penerbit yang dinamakan. Peneroka bebas ini tidak mengedar atau melesenkan semula penerbitan asal. Struktur, susunan dan metadata tambahan asal bagi set data peneroka boleh digunakan semula dengan atribusi kepada “SDE 2030 Blueprint Explorer by hafiy.my” serta pautan ke sde2030.com. Perkataan yang bersumberkan Blueprint kekal tertakluk pada hak penerbit asal. Set data ini tidak boleh digambarkan sebagai rasmi atau sebagai status pelaksanaan semasa yang telah disahkan.",
+        "data-use",
       ],
       [
         "Batas bahasa",

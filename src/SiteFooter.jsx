@@ -58,6 +58,15 @@ export default function SiteFooter({ copy, currentPage, language, onNavigate }) 
               </FooterLink>
             </li>
             <li>
+              <a
+                className="site-footer-link"
+                href={`${getRouteHref(methodologyRouteId)}#data-use`}
+                onClick={(event) => onNavigate(event, methodologyRouteId, "data-use")}
+              >
+                {copy.footer.dataUse}
+              </a>
+            </li>
+            <li>
               <a className="site-footer-link" href={CONTACT_URL}>
                 {copy.footer.contact}
               </a>
