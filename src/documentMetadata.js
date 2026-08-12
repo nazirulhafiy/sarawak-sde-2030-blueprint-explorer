@@ -1,4 +1,5 @@
 import { getRouteById, getRouteCanonical } from "./routes.js";
+import { getStructuredData } from "./seo.js";
 
 function setMetaContent(selector, content) {
   const element = document.querySelector(selector);
@@ -28,6 +29,13 @@ export function applyDocumentRouteMetadata(route) {
     route.metadata.description
   );
   setMetaContent('meta[name="twitter:image:alt"]', route.metadata.title);
+
+  const structuredData = document.querySelector(
+    'script[type="application/ld+json"]'
+  );
+  if (structuredData) {
+    structuredData.textContent = JSON.stringify(getStructuredData(route));
+  }
 
   document
     .querySelectorAll('link[rel="alternate"][hreflang]')

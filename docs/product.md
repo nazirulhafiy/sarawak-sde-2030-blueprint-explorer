@@ -22,6 +22,7 @@ The complete Blueprint baseline is the current product. Implementation evidence 
 - English and BM interface routes
 - baseline and methodology route explaining the evidence boundary
 - static pre-rendering, direct routes, theme control, and responsive layouts
+- route-specific search metadata, reciprocal English/BM language alternates, structured data, and a validated sitemap
 
 ## Deferred implementation research
 

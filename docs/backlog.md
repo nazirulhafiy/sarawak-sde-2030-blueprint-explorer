@@ -10,6 +10,7 @@
 - Add cautious evidence states, verified observation and review dates, direct source links, freshness metadata, and explicit `No current evidence` records.
 - Return the public explorer to a baseline-only experience while retaining the evidence dataset locally for possible future use.
 - Align the explorer header, metric strip, initiative cards, footer, and five interactive pillar pills with the PCDS 2030 tracker design language.
+- Add route-aware structured data, production/preview indexing controls, sitemap freshness dates, and build-time SEO validation.
 
 ## Future expansion
 

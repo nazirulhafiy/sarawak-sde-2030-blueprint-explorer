@@ -46,3 +46,9 @@ This is a static Vite and React app adapted from the PCDS 2030 tracker shell. It
 Production is built from `main` by GitHub Actions and published through GitHub Pages at [sde2030.com](https://sde2030.com). Cloudflare manages the domain and DNS.
 
 The production workflow runs the content validator and linter before building and prerendering all four public routes into `dist`.
+
+## Search visibility
+
+All four public routes are prerendered with route-specific titles, descriptions, canonical URLs, reciprocal English/BM `hreflang` links, social-card metadata, and Schema.org structured data. The sitemap uses the baseline dataset's `LAST_UPDATED` date, while preview and development builds receive `noindex, nofollow` directives automatically.
+
+Every local, preview, and production build runs `scripts/validate-seo.mjs` after prerendering. Run `npm run check:seo` to recheck the current `dist` output without rebuilding it.

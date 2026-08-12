@@ -2,6 +2,7 @@ import { renderToString } from 'react-dom/server'
 
 import Site from './Site.jsx'
 import { STATIC_ROUTES, resolveRoute } from './routes.js'
+export { getStructuredData } from './seo.js'
 
 export function getStaticRoutes() {
   return STATIC_ROUTES

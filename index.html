@@ -27,6 +27,7 @@
     </script>
     <title>SDE 2030 Blueprint Explorer</title>
     <meta name="description" content="Explore the 106 initiatives, 31 strategic actions, five pillars, and roadmap targets in the Sarawak Digital Economy Blueprint 2030." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://sde2030.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_MY" />
@@ -49,12 +50,17 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "SDE 2030 Blueprint Explorer",
-        "alternateName": ["Sarawak Digital Economy Blueprint 2030 Explorer", "Peneroka Blueprint SDE 2030"],
-        "url": "https://sde2030.com/",
-        "description": "An independent explorer of the Sarawak Digital Economy Blueprint 2030, including its pillars, strategic actions, initiatives, original targets and timelines.",
-        "inLanguage": ["en-MY", "ms-MY"]
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://sde2030.com/#website",
+            "name": "SDE 2030 Blueprint Explorer",
+            "alternateName": ["Sarawak Digital Economy Blueprint 2030 Explorer", "Peneroka Blueprint SDE 2030"],
+            "url": "https://sde2030.com/",
+            "description": "An independent explorer of the Sarawak Digital Economy Blueprint 2030, including its pillars, strategic actions, initiatives, original targets and timelines.",
+            "inLanguage": ["en-MY", "ms-MY"]
+          }
+        ]
       }
     </script>
   </head>

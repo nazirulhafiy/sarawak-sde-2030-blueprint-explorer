@@ -35,37 +35,7 @@ function getCanonical(route) {
   return new URL(route.path, productionOrigin).href;
 }
 
-function getStructuredData(route) {
-  const canonical = getCanonical(route);
-
-  if (route.id === "tracker-en") {
-    return {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: "SDE 2030 Blueprint Explorer",
-      alternateName: ["Sarawak Digital Economy Blueprint 2030 Explorer", "Peneroka Blueprint SDE 2030"],
-      url: canonical,
-      description: route.metadata.description,
-      inLanguage: ["en-MY", "ms-MY"],
-    };
-  }
-
-  return {
-    "@context": "https://schema.org",
-    "@type": route.page === "updates" ? "CollectionPage" : "WebPage",
-    name: route.metadata.title,
-    url: canonical,
-    description: route.metadata.description,
-    inLanguage: route.language === "ms" ? "ms-MY" : "en-MY",
-    isPartOf: {
-      "@type": "WebSite",
-      name: "SDE 2030 Blueprint Explorer",
-      url: `${productionOrigin}/`,
-    },
-  };
-}
-
-function applyRouteMetadata(template, route, allRoutes) {
+function applyRouteMetadata(template, route, allRoutes, getStructuredData) {
   const canonical = getCanonical(route);
   const title = escapeHtml(route.metadata.title);
   const description = escapeHtml(route.metadata.description);
@@ -103,6 +73,14 @@ function applyRouteMetadata(template, route, allRoutes) {
     .replace(
       /<meta name="description" content="[^"]*" \/>/,
       `<meta name="description" content="${description}" />`
+    )
+    .replace(
+      /<meta name="robots" content="[^"]*" \/>/,
+      `<meta name="robots" content="${
+        mode === "production"
+          ? "index, follow, max-image-preview:large"
+          : "noindex, nofollow"
+      }" />`
     )
     .replace(
       /<link rel="canonical" href="[^"]*" \/>/,
@@ -181,7 +159,7 @@ try {
     throw new Error("Prerender server entry was not generated.");
   }
 
-  const { getStaticRoutes, render } = await import(
+  const { getStaticRoutes, getStructuredData, render } = await import(
     pathToFileURL(join(serverOutDir, serverEntry)).href
   );
   const routes = getStaticRoutes();
@@ -194,7 +172,12 @@ try {
 
   for (const route of routes) {
     const appHtml = render(route.path);
-    const routeTemplate = applyRouteMetadata(template, route, routes);
+    const routeTemplate = applyRouteMetadata(
+      template,
+      route,
+      routes,
+      getStructuredData
+    );
     const output = routeTemplate.replace(
       rootMarker,
       `<div id="root">${appHtml}</div>`
