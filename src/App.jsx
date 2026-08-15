@@ -294,9 +294,9 @@ function AnimatedMetricNumber({ value }) {
 function SummaryMetrics({ copy }) {
   const metrics = [
     [BLUEPRINT_META.pillars, copy.metrics.pillars],
+    [ROADMAP_PHASES.length, copy.metrics.phases],
     [BLUEPRINT_META.strategicActions, copy.metrics.actions],
     [BLUEPRINT_META.initiatives, copy.metrics.initiatives],
-    [ROADMAP_PHASES.length, copy.metrics.phases],
   ];
   return (
     <section className="summary-metrics" aria-label={copy.metrics.label}>
