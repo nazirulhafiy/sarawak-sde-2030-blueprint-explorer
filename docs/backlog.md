@@ -9,7 +9,8 @@
 - Review all seven headline outcomes and ten initiatives, exactly two from each pillar.
 - Add cautious evidence states, verified observation and review dates, direct source links, freshness metadata, and explicit `No current evidence` records.
 - Return the public explorer to a baseline-only experience while retaining the evidence dataset locally for possible future use.
-- Align the explorer header, metric strip, initiative cards, footer, and five interactive pillar pills with the PCDS 2030 tracker design language.
+- Align the explorer header, metric strip, initiative cards, footer, and five pillar classification pills with the PCDS 2030 tracker design language.
+- Align pillar filtering and search with the PCDS discovery-control pattern, including the compact `All` state, scrollable mobile treatment, and dark-mode native dropdown contrast.
 - Add route-aware structured data, production/preview indexing controls, sitemap freshness dates, and build-time SEO validation.
 
 ## Future expansion

@@ -12,7 +12,7 @@ The complete baseline makes the Blueprint easier to browse without presenting it
 
 Each initiative preserves its original objective, description, intended outcome, target, timeline, lead agencies, and printed Blueprint page.
 
-The interface follows the established PCDS 2030 tracker design language: stacked Sarawak Development Monitor heading, four-metric summary strip, two-column expandable cards, and a split top-left classification pill. For this explorer, the split pill reads `Pillar` plus one of the five Blueprint pillars and acts as a pillar filter. Pillar colours identify Blueprint structure only; they do not represent delivery status.
+The interface follows the established PCDS 2030 tracker design language: stacked Sarawak Development Monitor heading, four-metric summary strip, a horizontally scrollable pillar filter with right-aligned search, two-column expandable cards, and a split top-left classification pill. The filter strip begins with the compact `All` state and retains the roadmap-phase picker alongside the five pillars. On cards, the display-only split pill reads `Pillar` plus the initiative's Blueprint pillar. Pillar colours identify Blueprint structure only; they do not represent delivery status.
 
 ## Local development
 

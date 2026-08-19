@@ -7,8 +7,8 @@ Retain the proven PCDS tracker shell while changing the content model from proje
 ## Information hierarchy
 
 1. Full Blueprint identity and independent-explorer explanation in the shared Sarawak Development Monitor header rhythm
-2. Four-column summary strip for pillars, actions, initiatives, and roadmap phases
-3. Search, pillar, and roadmap-phase controls
+2. Four-column summary strip for pillars, roadmap phases, actions, and initiatives
+3. Pillar, roadmap-phase, and search controls
 4. Expandable initiative cards
 5. Hero-aligned product summary, methodology navigation, and independent attribution footer
 
@@ -23,6 +23,12 @@ The collapsed card prioritises:
 - the complete original Blueprint target, with multi-part targets shown as compact bullet lists
 
 The split pillar pill is display-only while the dedicated pillar control above the cards is the primary filter. Its interactive morph implementation remains available behind a local feature constant for possible future reuse. The pill is a sibling of the disclosure button, not nested inside it, and each of the five pillars has a stable accent colour that never represents delivery status.
+
+## Discovery controls
+
+The primary controls follow the PCDS tracker pattern. Pillars appear as a horizontally scrollable pill strip, beginning with the compact `All` state. Overflow is handled inside the strip with contextual previous and next controls, never by widening the page. The search field is fixed to the right at desktop widths. At 760px and below, the strip remains first and the full-width search field stacks beneath it.
+
+The roadmap-phase picker is the final pill inside the scrollable strip. Its closed default reads `Phase`; opening the native select exposes `All roadmap phases` and the three dated Blueprint phases. A specific selection replaces the generic closed label. In dark mode, the closed pill retains the dark theme while the operating system's light native popup uses `CanvasText` option colours so every row remains legible.
 
 The default card order is short term, medium term, then long term. Within each horizon, cards are ordered by estimated target display height so long multi-part targets pair with similarly sized targets and shorter cards pair together. Equal-weight targets retain their original Blueprint order.
 
@@ -43,7 +49,7 @@ The expanded card keeps the horizon and timeline in the persistent header, then 
 - Give each pillar a stable accent colour.
 - Match the PCDS card rhythm: two-column desktop grid, compact top-right chevron, bordered target callout, subtle hover lift, and one-column mobile cards.
 - Preserve visible focus states, reduced-motion support, and keyboard-accessible expansion.
-- Keep filters compact and usable at 320px without clipped labels or horizontal page overflow.
+- Keep filters compact and usable at 320px without clipped labels or horizontal page overflow; filter overflow belongs inside the horizontal strip.
 - Use badges for Blueprint taxonomy, not delivery status or decorative gamification.
 - Count summary values into place on initial load, while exposing final totals to assistive technology and bypassing animation for reduced-motion preferences.
 - Reset a refreshed page to the top using the same explicit reload-scroll handling as the PCDS tracker.

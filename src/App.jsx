@@ -354,7 +354,7 @@ function DiscoveryControls({
   }, [pillar]);
 
   const pillarOptions = [
-    { id: "all", label: copy.filters.allPillars },
+    { id: "all", label: copy.filters.all },
     ...BLUEPRINT_PILLARS.map((entry) => ({ id: entry.id, label: entry.name })),
   ];
 

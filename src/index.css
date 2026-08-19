@@ -548,7 +548,11 @@ html[data-theme="light"] .theme-icon-rays { opacity: 1; transform: rotate(0) sca
 }
 
 .roadmap-filter-select--placeholder { color: transparent; }
-.roadmap-filter-select--placeholder option { color: var(--text-body); }
+.roadmap-filter-select--placeholder option { color: CanvasText; }
+
+html[data-theme="dark"] .roadmap-filter-select {
+  color-scheme: light;
+}
 
 .roadmap-filter-select:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 24%, transparent);

@@ -15,9 +15,9 @@ The complete Blueprint baseline is the current product. Implementation evidence 
 ## Stage 1 experience
 
 - scan-first summary metrics
-- pillar, roadmap-phase, and text filters
+- a horizontally scrollable pillar filter, compact roadmap-phase picker, and text search aligned on one row at desktop widths and stacked cleanly on mobile
 - expandable initiative cards
-- five colour-coded, interactive pillar pills in the same card-header role as the PCDS tracker's Sector and Enabler pills
+- five colour-coded, display-only pillar classification pills in the same card-header role as the PCDS tracker's Sector and Enabler pills
 - original objectives, descriptions, intended outcomes, targets, timelines, and lead agencies
 - English interface routes, with previous BM entry points temporarily serving the English experience
 - baseline and methodology route explaining the evidence boundary
