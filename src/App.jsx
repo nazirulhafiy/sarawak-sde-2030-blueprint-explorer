@@ -307,6 +307,134 @@ function SummaryMetrics({ copy }) {
   );
 }
 
+function DiscoveryControls({
+  copy,
+  pillar,
+  query,
+  roadmapPhase,
+  onPillarChange,
+  onQueryChange,
+  onRoadmapPhaseChange,
+}) {
+  const stripRef = useRef(null);
+  const [canScrollBack, setCanScrollBack] = useState(false);
+  const [canScrollForward, setCanScrollForward] = useState(false);
+
+  useEffect(() => {
+    const strip = stripRef.current;
+    if (!strip) return undefined;
+
+    const updateScrollState = () => {
+      const maxScrollLeft = Math.max(0, strip.scrollWidth - strip.clientWidth);
+      setCanScrollBack(strip.scrollLeft > 2);
+      setCanScrollForward(strip.scrollLeft < maxScrollLeft - 2);
+    };
+
+    updateScrollState();
+    strip.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      strip.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, []);
+
+  useEffect(() => {
+    const strip = stripRef.current;
+    const selected = strip?.querySelector(`[data-pillar-filter="${pillar}"]`);
+    if (!strip || !selected) return;
+
+    const stripRect = strip.getBoundingClientRect();
+    const selectedRect = selected.getBoundingClientRect();
+    if (selectedRect.left < stripRect.left + 34) {
+      strip.scrollBy({ left: selectedRect.left - stripRect.left - 34, behavior: "smooth" });
+    } else if (selectedRect.right > stripRect.right - 34) {
+      strip.scrollBy({ left: selectedRect.right - stripRect.right + 34, behavior: "smooth" });
+    }
+  }, [pillar]);
+
+  const pillarOptions = [
+    { id: "all", label: copy.filters.allPillars },
+    ...BLUEPRINT_PILLARS.map((entry) => ({ id: entry.id, label: entry.name })),
+  ];
+
+  return (
+    <section className="discovery-controls" aria-label={copy.filters.label}>
+      <div className={`filter-strip-area${canScrollBack ? " filter-strip-area--can-back" : ""}${canScrollForward ? " filter-strip-area--can-forward" : ""}`}>
+        <button
+          className="filter-strip-scroll filter-strip-back"
+          type="button"
+          aria-label={copy.filters.scrollFiltersBackward}
+          disabled={!canScrollBack}
+          onClick={() => stripRef.current?.scrollBy({ left: -260, behavior: "smooth" })}
+        >
+          <span aria-hidden="true">‹</span>
+        </button>
+        <div className="filter-strip" ref={stripRef}>
+          {pillarOptions.map((option) => (
+            <button
+              className={`filter-pill${pillar === option.id ? " filter-pill--active" : ""}`}
+              data-pillar-filter={option.id}
+              key={option.id}
+              type="button"
+              aria-pressed={pillar === option.id}
+              onClick={() => onPillarChange(pillar !== "all" && pillar === option.id ? "all" : option.id)}
+            >
+              {option.label}
+            </button>
+          ))}
+          <label className="roadmap-filter-pill">
+            <span className="visually-hidden">{copy.filters.roadmapPhase}</span>
+            {roadmapPhase === "all" && <span className="roadmap-filter-placeholder" aria-hidden="true">{copy.filters.phase}</span>}
+            <select
+              className={roadmapPhase === "all" ? "roadmap-filter-select roadmap-filter-select--placeholder" : "roadmap-filter-select"}
+              value={roadmapPhase}
+              onChange={(event) => onRoadmapPhaseChange(event.target.value)}
+            >
+              <option value="all">{copy.filters.allRoadmapPhases}</option>
+              {ROADMAP_PHASES.map((phase, index) => (
+                <option key={phase.year} value={ROADMAP_PHASE_HORIZONS[index]}>{phase.year} · {phase.name}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <button
+          className="filter-strip-scroll filter-strip-forward"
+          type="button"
+          aria-label={copy.filters.scrollFiltersForward}
+          disabled={!canScrollForward}
+          onClick={() => stripRef.current?.scrollBy({ left: 260, behavior: "smooth" })}
+        >
+          <span aria-hidden="true">›</span>
+        </button>
+      </div>
+      <div className="initiative-search">
+        <label className="visually-hidden" htmlFor="initiative-search-input">{copy.filters.search}</label>
+        <span className="initiative-search-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" focusable="false">
+            <circle cx="8.5" cy="8.5" r="5.5" />
+            <path d="m12.5 12.5 4 4" />
+          </svg>
+        </span>
+        <input
+          id="initiative-search-input"
+          type="search"
+          value={query}
+          onChange={(event) => onQueryChange(event.target.value)}
+          placeholder=""
+          autoComplete="off"
+          spellCheck="false"
+        />
+        {query && (
+          <button className="initiative-search-clear" type="button" onClick={() => onQueryChange("")} aria-label={copy.filters.clearSearch}>
+            <span aria-hidden="true">×</span>
+          </button>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export default function App({ language, onNavigate, headingRef }) {
   const copy = getUiCopy(language);
   const [pillar, setPillar] = useState("all");
@@ -412,33 +540,15 @@ export default function App({ language, onNavigate, headingRef }) {
 
         <SummaryMetrics copy={copy} />
 
-        <section className="filters" aria-label={copy.filters.label}>
-          <label className="filter-search">
-            <span className="visually-hidden">{copy.filters.search}</span>
-            <svg className="filter-search-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="6.5" />
-              <path d="m16 16 4.25 4.25" />
-            </svg>
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy.filters.searchPlaceholder} />
-          </label>
-          <label className="filter-select filter-select--pillar">
-            <span className="visually-hidden">{copy.filters.pillar}</span>
-            {pillar === "all" && <span className="filter-select-placeholder" aria-hidden="true">{copy.filters.pillar}</span>}
-            <select className={pillar === "all" ? "filter-select-native filter-select-native--placeholder" : "filter-select-native"} value={pillar} onChange={(event) => { const nextPillar = event.target.value; transitionFilter(() => setPillar(nextPillar)); }}><option value="all">{copy.filters.allPillars}</option>{BLUEPRINT_PILLARS.map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select>
-          </label>
-          <label className="filter-select filter-select--roadmap">
-            <span className="visually-hidden">{copy.filters.roadmapPhase}</span>
-            {roadmapPhase === "all" && <span className="filter-select-placeholder" aria-hidden="true">{copy.filters.phase}</span>}
-            <select className={roadmapPhase === "all" ? "filter-select-native filter-select-native--placeholder" : "filter-select-native"} value={roadmapPhase} onChange={(event) => { const nextRoadmapPhase = event.target.value; transitionFilter(() => setRoadmapPhase(nextRoadmapPhase)); }}>
-              <option value="all">{copy.filters.allRoadmapPhases}</option>
-              {ROADMAP_PHASES.map((phase, index) => (
-                <option key={phase.year} value={ROADMAP_PHASE_HORIZONS[index]}>
-                  {phase.year} · {phase.name}
-                </option>
-              ))}
-            </select>
-          </label>
-        </section>
+        <DiscoveryControls
+          copy={copy}
+          pillar={pillar}
+          query={query}
+          roadmapPhase={roadmapPhase}
+          onPillarChange={(value) => transitionFilter(() => setPillar(value))}
+          onQueryChange={setQuery}
+          onRoadmapPhaseChange={(value) => transitionFilter(() => setRoadmapPhase(value))}
+        />
 
         <section id="initiatives" className="initiatives-section" aria-label={copy.accessibility.initiatives}>
           <div className="initiative-filter-status">
