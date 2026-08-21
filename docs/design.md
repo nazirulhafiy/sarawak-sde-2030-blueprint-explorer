@@ -28,6 +28,8 @@ The split pillar pill is display-only while the dedicated pillar control above t
 
 The primary controls follow the PCDS tracker pattern. Pillars appear as a horizontally scrollable pill strip, beginning with the compact `All` state. Overflow is handled inside the strip with contextual previous and next controls, never by widening the page. The search field is fixed to the right at desktop widths. At 760px and below, the strip remains first and the full-width search field stacks beneath it.
 
+The search input uses a 16px text size at mobile widths and on coarse touch pointers so focusing it does not trigger iOS Safari's automatic page zoom. The viewport remains normally scalable, preserving pinch zoom.
+
 The roadmap-phase picker is the final pill inside the scrollable strip. Its closed default reads `Phase`; opening the native select exposes `All roadmap phases` and the three dated Blueprint phases. A specific selection replaces the generic closed label. In dark mode, the closed pill retains the dark theme while the operating system's light native popup uses `CanvasText` option colours so every row remains legible.
 
 The default card order is short term, medium term, then long term. Within each horizon, cards are ordered by estimated target display height so long multi-part targets pair with similarly sized targets and shorter cards pair together. Equal-weight targets retain their original Blueprint order.
@@ -53,6 +55,7 @@ The expanded card keeps the horizon and timeline in the persistent header, then 
 - Use badges for Blueprint taxonomy, not delivery status or decorative gamification.
 - Count summary values into place on initial load, while exposing final totals to assistive technology and bypassing animation for reduced-motion preferences.
 - Reset a refreshed page to the top using the same explicit reload-scroll handling as the PCDS tracker.
+- After the reader moves beyond the opening viewport, show a localized Back to top control in the lower-right corner on both routes. Desktop retains the text-plus-arrow treatment; at 760px and below it becomes a 40px arrow-only button while keeping the localized accessible label. Respect reduced-motion preferences when scrolling.
 
 ## Language
 

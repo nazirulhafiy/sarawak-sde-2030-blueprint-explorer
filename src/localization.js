@@ -90,6 +90,7 @@ const EN = {
   },
   accessibility: {
     ...shared.accessibility,
+    backToTop: "Back to top",
     skipToInitiatives: "Skip to initiatives",
     initiatives: "Blueprint initiatives",
   },
@@ -210,6 +211,7 @@ const MS = {
   },
   accessibility: {
     environment: (name) => `persekitaran ${name}`,
+    backToTop: "Kembali ke atas",
     skipToInitiatives: "Langkau ke inisiatif",
     initiatives: "Inisiatif Blueprint",
   },

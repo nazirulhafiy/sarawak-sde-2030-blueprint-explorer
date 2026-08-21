@@ -1268,6 +1268,71 @@ html[data-theme="dark"] .roadmap-filter-select {
   font-weight: 800;
 }
 
+.back-to-top {
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 8px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background-color: var(--surface);
+  color: var(--text-strong);
+  box-shadow: 0 4px 14px var(--control-shadow);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.3;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  visibility: hidden;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.back-to-top[data-visible="true"] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.back-to-top-arrow {
+  color: var(--brand-strong);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.back-to-top:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+body:has(.environment-badge) .back-to-top {
+  bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .back-to-top:hover {
+    border-color: color-mix(in srgb, var(--brand) 55%, var(--border-strong));
+    background-color: var(--surface-subtle);
+    box-shadow: 0 7px 18px var(--control-shadow);
+    transform: translateY(-2px);
+  }
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -1307,6 +1372,7 @@ html[data-theme="dark"] .roadmap-filter-select {
     gap: 9px;
     margin-bottom: 14px;
   }
+  .initiative-search input { font-size: 16px; }
   .filter-strip { width: 100%; padding-right: 32px; }
   .filter-strip-scroll { width: 30px; height: 36px; }
   .filter-pill,
@@ -1337,7 +1403,23 @@ html[data-theme="dark"] .roadmap-filter-select {
     border-left: 0;
   }
   .site-footer-bottom { padding: 16px 20px; }
+  .back-to-top {
+    right: calc(12px + env(safe-area-inset-right, 0px));
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    width: 40px;
+    min-height: 40px;
+    padding: 0;
+  }
+  .back-to-top > span:first-child { display: none; }
+  .back-to-top-arrow { font-size: 16px; }
+  body:has(.environment-badge) .back-to-top {
+    bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+  }
   .methodology-main .page-heading { font-size: 38px; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .initiative-search input { font-size: 16px; }
 }
 
 @media (max-width: 420px) {
@@ -1353,6 +1435,7 @@ html[data-theme="dark"] .roadmap-filter-select {
   .tracker-updates-link-arrow,
   .language-toggle-option,
   .theme-toggle,
+  .back-to-top,
   .theme-icon-core,
   .theme-icon-hole,
   .theme-icon-rays,
