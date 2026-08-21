@@ -1409,9 +1409,19 @@ body:has(.environment-badge) .back-to-top {
     width: 40px;
     min-height: 40px;
     padding: 0;
+    border-color: var(--brand);
+    background-color: var(--brand);
+    color: #ffffff;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--brand) 38%, transparent);
   }
   .back-to-top > span:first-child { display: none; }
-  .back-to-top-arrow { font-size: 16px; }
+  .back-to-top-arrow { color: currentColor; font-size: 16px; }
+  html[data-theme="dark"] .back-to-top {
+    border-color: var(--brand-strong);
+    background-color: var(--brand-strong);
+    color: #1a1a2e;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--brand-strong) 35%, transparent);
+  }
   body:has(.environment-badge) .back-to-top {
     bottom: calc(48px + env(safe-area-inset-bottom, 0px));
   }
