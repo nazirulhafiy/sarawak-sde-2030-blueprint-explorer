@@ -19,7 +19,7 @@ const EN = {
     description:
       "An independent explorer of the 2023 Sarawak Digital Economy Blueprint 2030, covering its pillars, initiatives, original targets, timelines and lead agencies.",
   },
-  navigation: { methodology: "Baseline & methodology" },
+  navigation: { methodology: "About" },
   header: {
     kicker: "Sarawak Development Monitor",
     contextTitle: "SDE 2030",
@@ -81,8 +81,8 @@ const EN = {
   },
   footer: {
     explore: "Explore",
-    tracker: "Blueprint explorer",
-    methodologyLink: "Baseline & methodology",
+    tracker: "Explorer",
+    methodologyLink: "About",
     dataUse: "Data use",
     contact: "Contact",
     independent:
@@ -137,7 +137,7 @@ const MS = {
       "Peneroka bebas Blueprint Ekonomi Digital Sarawak 2030 tahun 2023 yang merangkumi teras, inisiatif, sasaran, garis masa asal dan agensi peneraju.",
   },
   languageControl: { label: "Bahasa" },
-  navigation: { methodology: "Asas & metodologi" },
+  navigation: { methodology: "Tentang" },
   header: {
     kicker: "Sarawak Development Monitor",
     contextTitle: "SDE 2030",
@@ -202,8 +202,8 @@ const MS = {
   },
   footer: {
     explore: "Terokai",
-    tracker: "Peneroka Blueprint",
-    methodologyLink: "Asas & metodologi",
+    tracker: "Peneroka",
+    methodologyLink: "Tentang",
     dataUse: "Penggunaan data",
     contact: "Hubungi",
     independent:

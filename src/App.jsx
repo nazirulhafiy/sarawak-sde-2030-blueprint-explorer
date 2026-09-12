@@ -12,10 +12,8 @@ import {
   EnvironmentBadge,
   NavigationPillLink,
   PillarClassificationBadge,
-  ThemeToggle,
 } from "./SiteControls.jsx";
 import SiteFooter from "./SiteFooter.jsx";
-import { applyDocumentTheme } from "./theme.js";
 
 const FONT_STACK = "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 const FILTER_EXIT_DURATION_MS = 240;
@@ -222,7 +220,7 @@ function InitiativeCard({
           <TargetPreview value={item.target} />
         </span>
       </button>
-      <div className="initiative-details" id={`${detailsId}-details`} hidden={!expanded}>
+      <div className="sde-details-reveal" inert={!expanded} aria-hidden={!expanded}><div className="sde-details-inner"><div className="initiative-details" id={`${detailsId}-details`}>
         <dl className="initiative-facts">
           {facts.map(([label, value]) => (
             <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
@@ -232,12 +230,17 @@ function InitiativeCard({
         {item.description && <section><h3>{copy.card.description}</h3><SourceText value={item.description} /></section>}
         {toList(item.outcomes).length > 0 && <section><h3>{copy.card.outcomes}</h3><SourceText value={item.outcomes} /></section>}
         {item.target && <section className="blueprint-target"><h3>{copy.card.target}</h3><SourceText value={item.target} /></section>}
-      </div>
+      </div></div></div>
     </article>
   );
 }
 
-function useCountUp(target, duration = 1400) {
+function ExplorerTitle({ title }) {
+  const words = ["Pillars", "Actions", "Initiatives", "Explorer"];
+  return <span aria-label={title}><span className="sde-title-prefix" aria-hidden="true">Blueprint </span><span className="sde-word-slot" aria-hidden="true"><span className="sde-word-sizer">Explorer</span>{words.map((word, index) => <span className="sde-cycle-word" style={{ "--word-start": `${300 + index * 1400}ms` }} key={word}>{Array.from(word).map((letter, i) => <span className="sde-cycle-letter" style={{ "--letter-delay": `${i * 28}ms` }} key={i}>{letter}</span>)}</span>)}</span></span>;
+}
+
+function useCountUp(target, started, duration = 1400) {
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
@@ -252,6 +255,7 @@ function useCountUp(target, duration = 1400) {
       return () => window.cancelAnimationFrame(frameId);
     }
 
+    if (!started) return undefined;
     let frameId = null;
     let startTime = null;
     const animate = (timestamp) => {
@@ -275,13 +279,13 @@ function useCountUp(target, duration = 1400) {
         window.cancelAnimationFrame(frameId);
       }
     };
-  }, [duration, target]);
+  }, [duration, target, started]);
 
   return displayValue;
 }
 
-function AnimatedMetricNumber({ value }) {
-  const displayValue = useCountUp(value);
+function AnimatedMetricNumber({ value, started }) {
+  const displayValue = useCountUp(value, started);
 
   return (
     <>
@@ -291,7 +295,7 @@ function AnimatedMetricNumber({ value }) {
   );
 }
 
-function SummaryMetrics({ copy }) {
+function SummaryMetrics({ copy, started }) {
   const metrics = [
     [BLUEPRINT_META.pillars, copy.metrics.pillars],
     [ROADMAP_PHASES.length, copy.metrics.phases],
@@ -301,7 +305,7 @@ function SummaryMetrics({ copy }) {
   return (
     <section className="summary-metrics" aria-label={copy.metrics.label}>
       {metrics.map(([value, label]) => (
-        <div key={label}><strong><AnimatedMetricNumber value={value} /></strong><span>{label}</span></div>
+        <div key={label}><strong><AnimatedMetricNumber value={value} started={started} /></strong><span>{label}</span></div>
       ))}
     </section>
   );
@@ -435,7 +439,8 @@ function DiscoveryControls({
   );
 }
 
-export default function App({ language, onNavigate, headingRef }) {
+export default function App({ language, onNavigate, headingRef, introReady = true, returning = false }) {
+  const [summaryStarted, setSummaryStarted] = useState(false);
   const copy = getUiCopy(language);
   const [pillar, setPillar] = useState("all");
   const [roadmapPhase, setRoadmapPhase] = useState("all");
@@ -445,6 +450,36 @@ export default function App({ language, onNavigate, headingRef }) {
   const filterExitTimerRef = useRef(null);
   const filterEnterTimerRef = useRef(null);
   const initiatives = useMemo(() => flattenInitiatives(), []);
+
+  useEffect(() => {
+    const grid = document.querySelector(".initiative-grid");
+    if (!grid || !("IntersectionObserver" in window)) return;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobile = window.matchMedia("(max-width: 760px)").matches;
+    const seen = new Set();
+    const reveal = (card) => { card.style.removeProperty("opacity"); };
+    const observer = new IntersectionObserver((entries) => entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      const hidden = target.style.opacity === "0";
+      reveal(target);
+      observer.unobserve(target);
+      if (seen.has(target.id)) return;
+      seen.add(target.id);
+      if (!motion.matches && !grid.className.includes("--filter-")) target.animate([{ opacity: hidden ? 0 : 1, translate: mobile ? "0 20px" : "0 12px" }, { opacity: 1, translate: "0 0" }], { duration: 450, easing: "cubic-bezier(.22,1,.36,1)" });
+    }), { rootMargin: mobile ? "0px 0px -16px 0px" : "0px 0px 64px 0px" });
+    const observe = () => grid.querySelectorAll(".initiative-card").forEach((card) => {
+      if (seen.has(card.id) || motion.matches || grid.className.includes("--filter-")) { reveal(card); return; }
+      if (mobile && card.getBoundingClientRect().top >= window.innerHeight) card.style.opacity = "0";
+      observer.observe(card);
+    });
+    const focus = (event) => { const card = event.target.closest(".initiative-card"); if (card) { reveal(card); seen.add(card.id); observer.unobserve(card); } };
+    const mutations = new MutationObserver(observe);
+    mutations.observe(grid, { childList: true, attributes: true, attributeFilter: ["class"] });
+    grid.addEventListener("focusin", focus);
+    motion.addEventListener("change", observe);
+    observe();
+    return () => { observer.disconnect(); mutations.disconnect(); grid.removeEventListener("focusin", focus); motion.removeEventListener("change", observe); grid.querySelectorAll(".initiative-card").forEach(reveal); };
+  }, []);
 
   useEffect(() => () => {
     if (filterExitTimerRef.current) window.clearTimeout(filterExitTimerRef.current);
@@ -502,25 +537,15 @@ export default function App({ language, onNavigate, headingRef }) {
   const activePillarName = BLUEPRINT_PILLARS.find((entry) => entry.id === pillar)?.name;
   const maxFilterIndex = Math.min(Math.max(visible.length - 1, 0), FILTER_ENTER_MAX_STAGGER_INDEX);
   const filterIndexDenominator = Math.max(visible.length - 1, 1);
-  const toggleTheme = (theme) => {
-    applyDocumentTheme(theme);
-    try { localStorage.setItem("sde-theme", theme); } catch { /* Session theme remains active. */ }
-  };
-
   return (
-    <div className="app-shell" style={{ fontFamily: FONT_STACK }}>
+    <div className={`app-shell tracker-shell${introReady ? " tracker-shell--intro-ready" : ""}${returning ? " tracker-shell--returning" : ""}`} style={{ fontFamily: FONT_STACK }}>
       <a className="skip-link" href="#initiatives">{copy.accessibility.skipToInitiatives}</a>
       <main className="explorer-main">
         <header className="explorer-header">
-          <div className="header-meta-row">
-            <p className="tracker-kicker">{copy.header.kicker}</p>
-            <div className="header-controls">
-              <ThemeToggle copy={copy} onThemeToggle={toggleTheme} />
-            </div>
-          </div>
-          <h1 className="page-heading" ref={headingRef} tabIndex={-1}>
+          <div className="header-meta-row"><p className="tracker-kicker">{copy.header.kicker}</p></div>
+          <h1 className="page-heading tracker-title" ref={headingRef} tabIndex={-1}>
             <span className="tracker-title-context">{copy.header.contextTitle}</span>
-            <span className="tracker-title-product">{copy.header.productTitle}</span>
+            <span className="tracker-title-product"><ExplorerTitle language={language} title={copy.header.productTitle} /></span>
           </h1>
           <div className="tracker-description">
             <p>{copy.header.intro}</p>
@@ -538,7 +563,7 @@ export default function App({ language, onNavigate, headingRef }) {
           </NavigationPillLink>
         </p>
 
-        <SummaryMetrics copy={copy} />
+        <div className="tracker-summary-stage" onAnimationStart={(event) => { if (event.target === event.currentTarget) setSummaryStarted(true); }}><SummaryMetrics copy={copy} started={summaryStarted} /></div>
 
         <DiscoveryControls
           copy={copy}

@@ -68,7 +68,7 @@ for (const route of STATIC_ROUTES) {
 
   assert(!html.includes("%MODE%"), `${label}: unresolved %MODE% placeholder.`);
   assert(
-    html.includes(`<html lang="${route.language}">`),
+    getTags(html, "html")[0]?.lang === route.language,
     `${label}: incorrect document language.`
   );
 

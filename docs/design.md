@@ -2,7 +2,19 @@
 
 ## Direction
 
+V2 is selected in the initial HTML so the old layout cannot appear before
+React starts. The navigation logo and favicon use the PCDS S-shaped path and
+three rising bars in SDE cobalt blue (#3155c6), on a transparent background.
+The source is archived in `assets/brand/pcds-mark-source.png`; the favicon
+generator preserves its alpha mask and applies the environment colour.
+Environment icon colours remain distinct. Do not replace the mark with a square.
+
 Retain the proven PCDS tracker shell while changing the content model from project delivery to Blueprint exploration. The site should feel like a companion within the Sarawak Development Monitor family, but it must have its own SDE 2030 identity and avoid implying government affiliation.
+
+The interface now uses the PCDS V2 visual system as its reference: a compact
+sticky navigation bar, SDE cobalt-blue accent colour, centred explorer hero, bordered
+summary band, rounded cards, and a responsive menu. This is an interface port.
+It does not import PCDS data, wording, or status claims.
 
 ## Information hierarchy
 
@@ -47,7 +59,7 @@ The expanded card keeps the horizon and timeline in the persistent header, then 
 ## Colour and interaction
 
 - Retain the accessible dark and light themes.
-- Use cobalt blueprint blue (`#3155c6`) as the SDE brand accent, with a five-pillar blueprint-grid favicon, so the explorer remains visibly distinct from the teal PCDS tracker.
+- Use the SDE cobalt-blue accent system (`#3155c6`) while retaining the SDE favicon and all SDE-specific content.
 - Give each pillar a stable accent colour.
 - Match the PCDS card rhythm: two-column desktop grid, compact top-right chevron, bordered target callout, subtle hover lift, and one-column mobile cards.
 - Preserve visible focus states, reduced-motion support, and keyboard-accessible expansion.
@@ -57,9 +69,34 @@ The expanded card keeps the horizon and timeline in the persistent header, then 
 - Reset a refreshed page to the top using the same explicit reload-scroll handling as the PCDS tracker.
 - After the reader moves beyond the opening viewport, show a localized Back to top control in the lower-right corner on both routes. Desktop retains the text-plus-arrow treatment; at 760px and below it becomes a 40px arrow-only button while keeping the localized accessible label. Respect reduced-motion preferences when scrolling.
 
-## Language
+## Motion refinement
 
-The current public interface is English-only and does not show a language toggle. Previous BM entry points temporarily render the English experience with English canonical metadata. Restore BM only after its interface copy and route metadata have been reviewed; canonical source-derived initiative text must remain in English until reviewed translations exist.
+The head script selects the first-visit or return-visit state before paint.
+Use the live pcds2030.com motion settings, not a shortened alternative.
+The logo entrance takes 2200ms after a 300ms delay. The title uses the same
+four-word cycle, with SDE words: Pillars, Actions, Initiatives, Explorer.
+Words start 1400ms apart; letters start 28ms apart. Copy, date, summary,
+filters, cards, and footer start at 300, 380, 460, 560, 660, and 740ms.
+Return visits skip the logo and word cycle, with an 800ms title entrance
+and section delays of 120, 180, 180, 260, 340, and 340ms.
+The summary starts its 1.4-second count with its entrance.
+Reduced motion skips decorative transitions.
+
+Cards reveal individually as they approach the desktop viewport (64px early,
+12px rise). Mobile cards reveal 16px inside the viewport with a 20px rise.
+Filtering and keyboard focus reveal affected cards. Expanded details use a
+short height transition; collapsed details are inert and hidden from assistive
+technology. Reduced motion bypasses decorative animation.
+
+Escape closes the mobile menu and returns focus to its button. The menu also
+closes when the viewport changes to desktop width. Dark backgrounds use neutral
+grey surfaces with SDE blue accents.
+
+## Language availability
+
+The public navigation is English-only. It does not show a language control
+until the BM interface has completed review. Source-derived initiative text
+remains English until reviewed translations exist.
 
 ## Environments
 

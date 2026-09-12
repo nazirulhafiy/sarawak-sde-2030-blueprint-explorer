@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 
 const publicDir = resolve("public");
-const masterPath = resolve("assets/brand/sde-favicon-master-imagegen-v1.png");
+const masterPath = resolve("assets/brand/pcds-mark-source.png");
 const smallIconSizes = [16, 32, 48];
 const environments = [
   { name: "production", color: "#3155c6" },
@@ -22,15 +22,6 @@ function parseHexColor(hex) {
     g: Number.parseInt(value.slice(2, 4), 16),
     b: Number.parseInt(value.slice(4, 6), 16),
   };
-}
-
-function clamp(value, minimum, maximum) {
-  return Math.min(Math.max(value, minimum), maximum);
-}
-
-function smoothstep(value) {
-  const clamped = clamp(value, 0, 1);
-  return clamped * clamped * (3 - 2 * clamped);
 }
 
 function crc32(buffer) {
@@ -195,16 +186,9 @@ function createMarkMask(png) {
 
   for (let index = 0; index < mask.length; index += 1) {
     const sourceIndex = index * 4;
-    const minimumChannel = Math.min(
-      png.raw[sourceIndex],
-      png.raw[sourceIndex + 1],
-      png.raw[sourceIndex + 2],
-    );
     const alpha = png.raw[sourceIndex + 3] / 255;
-
-    // Imagegen supplied the composition. This converts its white emblem and
-    // cobalt field into a stable two-colour mask while retaining edge smoothing.
-    mask[index] = smoothstep((minimumChannel - 80) / 120) * alpha;
+    // Preserve the exact outline and edge smoothing of the PCDS browser mark.
+    mask[index] = alpha;
   }
 
   return { width: png.width, height: png.height, mask };
@@ -241,10 +225,10 @@ function renderIcon(master, size, targetHex) {
       const coverage = weightedCoverage / totalWeight;
       const targetIndex = (targetY * size + targetX) * 4;
 
-      raw[targetIndex] = Math.round(target.r + (255 - target.r) * coverage);
-      raw[targetIndex + 1] = Math.round(target.g + (255 - target.g) * coverage);
-      raw[targetIndex + 2] = Math.round(target.b + (255 - target.b) * coverage);
-      raw[targetIndex + 3] = 255;
+      raw[targetIndex] = target.r;
+      raw[targetIndex + 1] = target.g;
+      raw[targetIndex + 2] = target.b;
+      raw[targetIndex + 3] = Math.round(255 * coverage);
     }
   }
 

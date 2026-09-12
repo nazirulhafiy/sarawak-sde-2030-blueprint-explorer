@@ -68,7 +68,7 @@ function applyRouteMetadata(template, route, allRoutes, getStructuredData) {
     .join("\n");
 
   let output = template
-    .replace(/<html lang="[^"]*">/, `<html lang="${route.language}">`)
+    .replace(/<html lang="[^"]*"([^>]*)>/, `<html lang="${route.language}"$1>`)
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`)
     .replace(
       /<meta name="description" content="[^"]*" \/>/,

@@ -6,6 +6,10 @@ SDE 2030 Blueprint Explorer is an independent public-interest interface for the 
 
 The complete Blueprint baseline is the current product. Implementation evidence is intentionally deferred until coverage and maintenance capacity are broad enough for a separate tracking function.
 
+The interface uses the PCDS V2 design system as a visual reference. It keeps
+the SDE product identity, data model, routes, and evidence boundary. It does
+not use PCDS project content or implementation claims.
+
 ## Audience
 
 - Sarawakians looking for a clear overview of the Blueprint

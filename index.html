@@ -1,17 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-interface="v2">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-%MODE%-browser.png?v=20260811sde1" />
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-%MODE%-browser-48x48.png?v=20260811sde1" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-%MODE%-browser-32x32.png?v=20260811sde1" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-%MODE%-browser-16x16.png?v=20260811sde1" />
-    <link rel="icon" href="/favicon-%MODE%-browser.ico?v=20260811sde1" sizes="16x16 32x32 48x48" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-%MODE%.png?v=20260811sde1" />
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-%MODE%-browser.png?v=20260912b" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-%MODE%-browser-48x48.png?v=20260912b" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-%MODE%-browser-32x32.png?v=20260912b" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-%MODE%-browser-16x16.png?v=20260912b" />
+    <link rel="icon" href="/favicon-%MODE%-browser.ico?v=20260912b" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-%MODE%.png?v=20260912b" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" />
     <script>
       (() => {
+        let returning = false;
+        try {
+          returning = sessionStorage.getItem("sde-v2-intro-seen") === "1";
+          sessionStorage.setItem("sde-v2-intro-seen", "1");
+        } catch { /* The first-visit motion also works without storage. */ }
+        document.documentElement.dataset.load = returning ||
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "returning" : "first";
         try {
           const savedTheme = localStorage.getItem("sde-theme") || localStorage.getItem("sdb-theme");
           const theme = savedTheme === "light" || savedTheme === "dark"
