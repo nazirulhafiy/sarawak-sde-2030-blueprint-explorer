@@ -71,6 +71,11 @@ The expanded card keeps the horizon and timeline in the persistent header, then 
 
 ## Motion refinement
 
+Collapsed initiative cards reserve at least 30px between the category row and
+title (10px grid gap plus 20px title-row padding). Long target text must not
+remove this gap. Dark-mode neutral text colours match PCDS; SDE retains blue
+accents. Timeline marks use the PCDS icon colour, without implying completion.
+
 The head script selects the first-visit or return-visit state before paint.
 Use the live pcds2030.com motion settings, not a shortened alternative.
 The logo entrance takes 2200ms after a 300ms delay. The title uses the same
