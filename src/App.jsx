@@ -2,15 +2,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BLUEPRINT_META,
   BLUEPRINT_PILLARS,
-  LAST_UPDATED,
   ROADMAP_PHASES,
 } from "./blueprintData.js";
 import { getAppEnvironment } from "./environment.js";
 import { getUiCopy } from "./localization.js";
-import { getRouteHref } from "./routes.js";
 import {
   EnvironmentBadge,
-  NavigationPillLink,
   PillarClassificationBadge,
 } from "./SiteControls.jsx";
 import SiteFooter from "./SiteFooter.jsx";
@@ -80,20 +77,6 @@ function compareInitiatives(left, right) {
   if (horizonDifference !== 0) return horizonDifference;
 
   return targetDisplayWeight(right.target) - targetDisplayWeight(left.target);
-}
-
-function displayDate(value, language) {
-  if (!value) return null;
-  if (/^\d{4}$/.test(value)) return value;
-  const monthOnly = /^\d{4}-\d{2}$/.test(value);
-  const parsed = new Date(`${value}${monthOnly ? "-01" : ""}T00:00:00Z`);
-  if (Number.isNaN(parsed.getTime())) return value;
-  return new Intl.DateTimeFormat(
-    language === "ms" ? "ms-MY" : "en-MY",
-    monthOnly
-      ? { month: "short", year: "numeric", timeZone: "UTC" }
-      : { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" },
-  ).format(parsed);
 }
 
 function SourceText({ value }) {
@@ -552,16 +535,6 @@ export default function App({ language, onNavigate, headingRef, introReady = tru
             <p>{copy.header.baselineNotice}</p>
           </div>
         </header>
-        <p className="tracker-last-updated">
-          <NavigationPillLink
-            className="tracker-updates-link"
-            href={getRouteHref(language === "ms" ? "updates-ms" : "updates")}
-            onClick={(event) => onNavigate(event, language === "ms" ? "updates-ms" : "updates")}
-          >
-            {copy.header.baselineRelease} {displayDate(LAST_UPDATED, language)}
-            <span className="tracker-updates-link-arrow" aria-hidden="true">↗</span>
-          </NavigationPillLink>
-        </p>
 
         <div className="tracker-summary-stage" onAnimationStart={(event) => { if (event.target === event.currentTarget) setSummaryStarted(true); }}><SummaryMetrics copy={copy} started={summaryStarted} /></div>
 
