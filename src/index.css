@@ -1029,7 +1029,7 @@ html[data-theme="dark"] .roadmap-filter-select {
 }
 
 .initiative-card-trigger:focus-visible .initiative-card-chevron,
-.initiative-card:hover .initiative-card-chevron {
+.initiative-card-trigger:active .initiative-card-chevron {
   transform: translateY(-1px);
   border-color: var(--border-soft);
   background: var(--surface-subtle);
@@ -1080,8 +1080,9 @@ html[data-theme="dark"] .roadmap-filter-select {
 .initiative-facts div {
   min-width: 0;
   padding: 10px;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: var(--surface-subtle);
+  background: var(--surface);
 }
 
 .initiative-facts dt {
@@ -1647,10 +1648,38 @@ html[data-interface="v2"] .initiative-search input { font-size: 14px; }
 html[data-interface="v2"] .initiative-card { border-color: var(--border); border-radius: 20px; background: var(--surface-subtle); box-shadow: none; }
 html[data-interface="v2"] .initiative-card:hover, html[data-interface="v2"] .initiative-card:has(.initiative-card-trigger:focus-visible) { border-color: color-mix(in srgb, var(--text-secondary) 28%, var(--border-strong)); box-shadow: var(--card-hover-shadow); transform: translateY(-3px); }
 html[data-interface="v2"] .initiative-card-title { font-weight: 550; letter-spacing: -.5px; }
-html[data-interface="v2"] .initiative-card-chevron { width: auto; height: 24px; padding: 5px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--text-secondary); font-size: 0; }
-html[data-interface="v2"] .initiative-card-chevron::before { content: "Details"; font-size: 10px; font-weight: 700; }
-html[data-interface="v2"] .initiative-card-chevron::after { margin-left: 5px; }
-html[data-interface="v2"] .initiative-card-chevron[data-expanded="true"]::before { content: "Hide"; }
+html[data-interface="v2"] .initiative-card-chevron {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--text-secondary);
+  transition: transform 180ms cubic-bezier(.22,1,.36,1), background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+html[data-interface="v2"] .initiative-card-trigger:is(:focus-visible, :active) .initiative-card-chevron {
+  transform: translateY(-1px);
+  border-color: var(--border-soft);
+  background-color: var(--surface-subtle);
+  color: var(--text-strong);
+  box-shadow: 0 2px 5px var(--control-shadow);
+}
+@media (hover: hover) and (pointer: fine) {
+  html[data-interface="v2"] .initiative-card:hover .initiative-card-chevron {
+    transform: translateY(-1px);
+    border-color: var(--border-soft);
+    background-color: var(--surface-subtle);
+    color: var(--text-strong);
+    box-shadow: 0 2px 5px var(--control-shadow);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-interface="v2"] .initiative-card-chevron { transition: none; }
+}
 html[data-interface="v2"] .initiative-target-callout { border-color: var(--border); background: var(--surface); }
 html[data-interface="v2"] .initiative-details { border-color: var(--border); }
 html[data-interface="v2"] .site-footer { margin-top: 70px; border-color: var(--border); border-radius: 0; background: transparent; }
