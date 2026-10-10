@@ -1,17 +1,23 @@
 # Agent Instructions
 
-This repository is the independent SDE 2030 Blueprint Explorer, a Vite and React static site based on the proven PCDS 2030 tracker shell.
+This repository is the independent SDE 2030 Blueprint Explorer, a Vite and React static site based on the proven PCDS 2030 tracker shell. The public interface is English-only for now. Legacy `/bm/` paths serve that same English experience until reviewed Bahasa Melayu coverage is restored.
 
 ## Working Rules
 
-- Preserve the scan-first, bilingual, source-forward interaction model unless the user requests a redesign.
+- Preserve the scan-first, English-only, source-forward interaction model unless the user requests a redesign.
 - Keep the Blueprint's hierarchy exact: five strategic pillars, 31 strategic actions, and 106 initiatives.
 - Call records `initiatives`, not projects, unless a cited source explicitly identifies a project.
 - Keep original Blueprint commitments separate from later implementation evidence.
 - Never infer a current status from a passed target or timeline.
-- Treat `README.md`, `docs/product.md`, `docs/design.md`, `docs/data-methodology.md`, and `docs/backlog.md` as project memory.
+- Treat `README.md`, `docs/product.md`, `docs/design.md`, `docs/data-methodology.md`, `docs/automation.md`, `docs/ci-docs-check.md`, and `docs/backlog.md` as project memory.
 - Treat `src/blueprintData.js` as the immutable baseline dataset and `src/implementationData.js` as later public-evidence observations. Never merge the two meanings.
 - Do not introduce new dependencies without a clear maintenance benefit.
+
+## Documentation
+
+Design or behaviour changes (CSS, templates, app JS, build scripts, config) must update docs/ (usually docs/design.md) in the same PR. Use the `no-docs-needed` label only for changes that truly need no docs.
+
+The docs-check workflow enforces that rule. Watched paths and the label are described in [docs/ci-docs-check.md](docs/ci-docs-check.md). Dataset and interface-copy files are not watched: `src/blueprintData.js`, `src/implementationData.js`, and `src/localization.js`.
 
 ## Evidence Rules
 
@@ -30,6 +36,8 @@ This repository is the independent SDE 2030 Blueprint Explorer, a Vite and React
 - Run content validation with `npm run check:content`.
 - Run linting with `npm run lint`.
 - Run the local production build with `npm run build:local`.
+- Build a preview-mode site with `npm run build:preview`.
+- Build the GitHub Pages production output with `npm run build:production`.
 - Use `npm run preview:start`, `npm run preview:status`, and `npm run preview:stop` for the local preview.
 
 ## Safety
