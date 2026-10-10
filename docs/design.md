@@ -1,5 +1,23 @@
 # Design Notes
 
+## Current interface
+
+The public site is an English-only Vite and React explorer. `src/Site.jsx` is the shell: sticky navigation, theme control, mobile menu, and client-side route changes. `src/App.jsx` is the Blueprint explorer (summary, filters, initiative cards). `src/UpdatesPage.jsx` is the baseline and methodology page. `src/SiteFooter.jsx` and `src/BackToTop.jsx` appear on both routes. `src/SiteControls.jsx` supplies the pillar pill, theme toggle, and environment badge. `LanguageToggle` exists in that file and is not mounted.
+
+`index.html` sets the first-paint theme and intro state, then `scripts/prerender.mjs` writes the static routes. Styling lives in `src/index.css`.
+
+The type stack is `Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`. Inter is named in CSS and is not a self-hosted file; the browser uses it when it is installed and otherwise uses the system fallbacks.
+
+Light mode uses a white page (`#ffffff`) and SDE cobalt `#3155c6`. Dark mode uses `#121212` with brand `#8ca5ff`. Pillar accents identify Blueprint structure only:
+
+| Pillar id | Accent |
+| --- | --- |
+| `pillar-1` | `#6366f1` |
+| `pillar-2` | `#b45309` |
+| `pillar-3` | `#0d9488` |
+| `pillar-4` | `#7c3aed` |
+| `pillar-5` | `#2563eb` |
+
 ## Direction
 
 V2 is selected in the initial HTML so the old layout cannot appear before
@@ -105,4 +123,4 @@ remains English until reviewed translations exist.
 
 ## Environments
 
-Production is published from `main` through GitHub Pages at `sde2030.com`. Cloudflare remains the registrar and DNS provider. Preview deployments may use `preview.sde2030.com` when a dedicated Preview workflow is introduced.
+Production is published from `main` through GitHub Pages at `sde2030.com`. Cloudflare remains the registrar and DNS provider. The Pages workflow is [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml). `scripts/write-cname.mjs` can write `preview.sde2030.com` for a preview build; a dedicated Preview workflow is not in the repository yet. Preview and development prerenders set `noindex, nofollow`. Production prerenders allow indexing.

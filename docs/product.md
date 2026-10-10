@@ -27,7 +27,7 @@ not use PCDS project content or implementation claims.
 - baseline and methodology route explaining the evidence boundary
 - static pre-rendering, direct routes, theme control, and responsive layouts
 - a localized Back to top control on both routes, using a compact arrow-only button on mobile
-- route-specific search metadata, reciprocal English/BM language alternates, structured data, and a validated sitemap
+- route-specific search metadata, English-only `hreflang` links, structured data, and a validated sitemap
 
 ## Deferred implementation research
 
