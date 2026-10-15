@@ -124,3 +124,7 @@ remains English until reviewed translations exist.
 ## Environments
 
 Production is published from `main` through GitHub Pages at `sde2030.com`. Cloudflare remains the registrar and DNS provider. The Pages workflow is [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml). `scripts/write-cname.mjs` can write `preview.sde2030.com` for a preview build; a dedicated Preview workflow is not in the repository yet. Preview and development prerenders set `noindex, nofollow`. Production prerenders allow indexing.
+
+## Analytics
+
+The shared template [`index.html`](../index.html) loads Google Analytics 4 (`G-B1HCKG6RX6`) in `<head>` via `gtag.js`, and the Cloudflare Web Analytics beacon (`static.cloudflareinsights.com`, SPA mode) before the app script. `scripts/prerender.mjs` uses this template, so every prerendered route inherits both. The site sets no Content Security Policy; if one is added, it must allow `https://www.googletagmanager.com`, `https://*.google-analytics.com`, `https://static.cloudflareinsights.com` and `https://cloudflareinsights.com`.
