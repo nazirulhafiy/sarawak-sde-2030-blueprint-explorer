@@ -75,6 +75,30 @@
     document.head.appendChild(script);
   }
 
+  function loadCloudflareWebAnalytics() {
+    if (isInternalTraffic()) {
+      return;
+    }
+
+    function inject() {
+      var script = document.createElement("script");
+      script.type = "module";
+      script.src = "https://static.cloudflareinsights.com/beacon.min.js";
+      script.setAttribute(
+        "data-cf-beacon",
+        '{"token":"bba02bd0b70e4b3d9a1acd6390a9a4c6","spa":true}'
+      );
+      document.body.appendChild(script);
+    }
+
+    if (document.body) {
+      inject();
+    } else {
+      document.addEventListener("DOMContentLoaded", inject);
+    }
+  }
+
   syncInternalFromQuery();
   loadGoogleAnalytics();
+  loadCloudflareWebAnalytics();
 })();

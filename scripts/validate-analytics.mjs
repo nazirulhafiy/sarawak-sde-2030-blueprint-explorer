@@ -3,11 +3,13 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 import {
+  CLOUDFLARE_BEACON_SRC,
   GA_MEASUREMENT_ID,
   INTERNAL_COOKIE_NAME,
   buildGtagConfig,
   isGaProductionHost,
   resolveInternalTrafficFromQuery,
+  shouldLoadCloudflareBeacon,
 } from "./lib/ga-analytics.mjs";
 
 const errors = [];
@@ -36,6 +38,15 @@ function runUnitChecks() {
   assert(
     buildGtagConfig(false).traffic_type === undefined,
     "public traffic must not send traffic_type."
+  );
+
+  assert(
+    shouldLoadCloudflareBeacon(false),
+    "Cloudflare beacon must load for public traffic."
+  );
+  assert(
+    !shouldLoadCloudflareBeacon(true),
+    "Cloudflare beacon must not load when internal cookie is set."
   );
 }
 
@@ -71,6 +82,19 @@ async function runTemplateChecks() {
   assert(
     !bootstrap.includes("preview.sde2030.com"),
     "ga-bootstrap.js must not treat preview as a production host."
+  );
+
+  assert(
+    !indexHtml.includes(CLOUDFLARE_BEACON_SRC),
+    "index.html must not load the Cloudflare beacon directly; use ga-bootstrap.js."
+  );
+  assert(
+    bootstrap.includes(CLOUDFLARE_BEACON_SRC),
+    "ga-bootstrap.js must inject the Cloudflare beacon for non-internal traffic."
+  );
+  assert(
+    bootstrap.includes("loadCloudflareWebAnalytics") && bootstrap.includes("isInternalTraffic()"),
+    "ga-bootstrap.js must skip Cloudflare when internal traffic cookie is set."
   );
 }
 

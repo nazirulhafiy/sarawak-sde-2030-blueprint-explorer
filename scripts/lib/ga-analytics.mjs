@@ -37,3 +37,13 @@ export function buildGtagConfig(isInternalTraffic) {
   }
   return { traffic_type: "internal" };
 }
+
+export const CLOUDFLARE_BEACON_SRC = "https://static.cloudflareinsights.com/beacon.min.js";
+
+/**
+ * Cloudflare Web Analytics must not load for internal / QA traffic.
+ * @param {boolean} isInternalTraffic
+ */
+export function shouldLoadCloudflareBeacon(isInternalTraffic) {
+  return !isInternalTraffic;
+}

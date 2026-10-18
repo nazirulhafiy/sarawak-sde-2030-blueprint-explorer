@@ -31,7 +31,7 @@ The docs-check workflow enforces that rule. Watched paths and the label are desc
 
 ## Live site QA and analytics
 
-When opening the production site for screenshots, browser QA, or cloud-agent checks, use `https://sde2030.com/?internal=1` (append `&internal=1` if the URL already has query parameters). That sets the `sde2030_ga_internal` cookie so GA4 records `traffic_type: internal`. Use `?internal=0` on production to clear the cookie. GA loads only on `sde2030.com` and `www.sde2030.com`; preview and localhost never send GA hits. See [docs/design.md](docs/design.md#analytics) for cookie and host-gating detail.
+When opening the production site for screenshots, browser QA, or cloud-agent checks, use `https://sde2030.com/?internal=1` (append `&internal=1` if the URL already has query parameters). That sets the `sde2030_ga_internal` cookie so GA4 records `traffic_type: internal` and the Cloudflare Web Analytics beacon is not loaded. Use `?internal=0` on production to clear the cookie. GA loads only on `sde2030.com` and `www.sde2030.com`; preview and localhost never send GA hits. See [docs/design.md](docs/design.md#analytics) for cookie and host-gating detail.
 
 ## Local Commands
 
