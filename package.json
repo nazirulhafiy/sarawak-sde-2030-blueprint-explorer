@@ -9,6 +9,7 @@
     "build:local": "vite build && node scripts/prerender.mjs development && node scripts/validate-seo.mjs development",
     "build:preview": "vite build --mode preview && node scripts/prerender.mjs preview && node scripts/validate-seo.mjs preview",
     "build:production": "vite build && node scripts/prerender.mjs production && node scripts/write-cname.mjs production && node scripts/validate-seo.mjs production",
+    "check:analytics": "node scripts/validate-analytics.mjs",
     "check:content": "node scripts/validate-blueprint-data.mjs",
     "check:seo": "node scripts/validate-seo.mjs",
     "icons:generate": "node scripts/generate-environment-favicons.mjs",
