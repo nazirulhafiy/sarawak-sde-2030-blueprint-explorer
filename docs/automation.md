@@ -23,3 +23,7 @@ Pull-request runs use the concurrency group `pages-pr-<number>`. Production runs
 ## Schedule
 
 Dependabot's weekly GitHub Actions check is the only schedule in this repository. Publishing runs when `main` changes, a pull request updates, or someone starts the Pages workflow by hand. There is no content-review cron.
+
+## Live site checks and GA4 internal traffic
+
+Cloud agents, screenshot jobs, and manual QA on production should open [sde2030.com](https://sde2030.com/?internal=1) with `?internal=1` so visits are tagged as internal in GA4. Pull-request Pages artifacts and `preview.sde2030.com` do not load GA; verifying host gating on a PR means opening the artifact URL and confirming `googletagmanager.com` is not requested (for example in the network panel). Cookie behaviour (`sde2030_ga_internal`, `?internal=0` to clear) is documented in [design.md](design.md#analytics).

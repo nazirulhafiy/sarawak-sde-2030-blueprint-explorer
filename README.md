@@ -2,7 +2,7 @@
 
 An independent English-language explorer for the 2023 Sarawak Digital Economy Blueprint 2030.
 
-**Live site:** [sde2030.com](https://sde2030.com)
+**Live site:** [sde2030.com](https://sde2030.com) — agents and QA should use [`?internal=1`](https://sde2030.com/?internal=1) on production (see [AGENTS.md](AGENTS.md)).
 
 The complete baseline makes the Blueprint easier to browse without presenting its original commitments as verified current progress. It covers:
 
@@ -47,6 +47,7 @@ The site has a build step.
 | `npm run build:preview` | `vite build --mode preview`, prerender, and SEO check |
 | `npm run build:production` | Vite build, prerender, `dist/CNAME` for `sde2030.com`, and SEO check |
 | `npm run check:content` | Validates the Blueprint baseline dataset |
+| `npm run check:analytics` | Validates GA bootstrap, host gating, and internal-traffic helpers |
 | `npm run check:seo` | Rechecks the current `dist` output without rebuilding it |
 | `npm run lint` | Runs ESLint |
 

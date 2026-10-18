@@ -29,11 +29,16 @@ The docs-check workflow enforces that rule. Watched paths and the label are desc
 - Do not apply `No current evidence` to an initiative that has not received a focused evidence review.
 - Every implementation update must cite a source stored on the same evidence record. Record publisher, publication date, access date, type, supported fields, and confidence.
 
+## Live site QA and analytics
+
+When opening the production site for screenshots, browser QA, or cloud-agent checks, use `https://sde2030.com/?internal=1` (append `&internal=1` if the URL already has query parameters). That sets the `sde2030_ga_internal` cookie so GA4 records `traffic_type: internal`. Use `?internal=0` on production to clear the cookie. GA loads only on `sde2030.com` and `www.sde2030.com`; preview and localhost never send GA hits. See [docs/design.md](docs/design.md#analytics) for cookie and host-gating detail.
+
 ## Local Commands
 
 - Install dependencies with `npm ci`.
 - Run local development with `npm run dev`.
 - Run content validation with `npm run check:content`.
+- Run analytics template checks with `npm run check:analytics`.
 - Run linting with `npm run lint`.
 - Run the local production build with `npm run build:local`.
 - Build a preview-mode site with `npm run build:preview`.
