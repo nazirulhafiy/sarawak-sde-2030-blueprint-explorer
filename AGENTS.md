@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This repository is the independent SDE 2030 Blueprint Explorer, a Vite and React static site based on the proven PCDS 2030 tracker shell. The public interface is English-only for now. Legacy `/bm/` paths serve that same English experience until reviewed Bahasa Melayu coverage is restored.
+This repository is the independent sde2030.com Blueprint Explorer (site title in `data/site.json`), a Vite and React static site based on the proven PCDS 2030 tracker shell. The public interface is English-only for now. Legacy `/bm/` paths serve that same English experience until reviewed Bahasa Melayu coverage is restored.
 
 ## Working Rules
 

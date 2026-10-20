@@ -1,5 +1,19 @@
+import { SITE_COPY, SITE_DOCUMENT_TITLE } from "./siteCopy.js";
+
 export const DEFAULT_LANGUAGE = "en";
 export const SUPPORTED_LANGUAGES = ["en", "ms"];
+
+function siteAttributionPhrase() {
+  return `\u201c${SITE_COPY.title} by hafiy.my\u201d`;
+}
+
+function dataUseBodyEn() {
+  return `The Sarawak Digital Economy Blueprint 2030 remains the work of the Sarawak Government and its named publishers. This independent explorer does not redistribute or relicense the original publication. The explorer's original dataset structure, arrangement and added metadata may be reused with attribution to ${siteAttributionPhrase()} and a link to sde2030.com. Source-derived wording remains subject to the rights of its original publisher. The dataset must not be represented as official or as verified current implementation status.`;
+}
+
+function dataUseBodyMs() {
+  return `Sarawak Digital Economy Blueprint 2030 kekal sebagai karya Kerajaan Sarawak dan penerbit yang dinamakan. Peneroka bebas ini tidak mengedar atau melesenkan semula penerbitan asal. Struktur, susunan dan metadata tambahan asal bagi set data peneroka boleh digunakan semula dengan atribusi kepada ${siteAttributionPhrase()} serta pautan ke sde2030.com. Perkataan yang bersumberkan Blueprint kekal tertakluk pada hak penerbit asal. Set data ini tidak boleh digambarkan sebagai rasmi atau sebagai status pelaksanaan semasa yang telah disahkan.`;
+}
 
 const shared = {
   themeToggle: {
@@ -15,19 +29,17 @@ const shared = {
 const EN = {
   ...shared,
   metadata: {
-    title: "SDE 2030 Blueprint Explorer | Sarawak Development Monitor",
-    description:
-      "An independent explorer of the 2023 Sarawak Digital Economy Blueprint 2030, covering its pillars, initiatives, original targets, timelines and lead agencies.",
+    title: SITE_DOCUMENT_TITLE,
+    description: SITE_COPY.description,
   },
   navigation: { methodology: "About" },
   header: {
     kicker: "Sarawak Development Monitor",
     contextTitle: "SDE 2030",
     productTitle: "Blueprint Explorer",
-    title: "SDE 2030 Blueprint Explorer",
+    title: SITE_COPY.title,
     programmeName: "Sarawak Digital Economy Blueprint 2030",
-    intro:
-      "Initiatives under Sarawak's Digital Economy Blueprint 2030, in one place.",
+    intro: SITE_COPY.tagline,
     baselineNotice:
       "An independent explorer with original targets, timelines and lead agencies.",
     baselineRelease: "Last updated:",
@@ -97,8 +109,7 @@ const EN = {
   methodologyPage: {
     back: "Blueprint explorer",
     title: "Baseline & methodology",
-    intro:
-      "The Blueprint remains the 2023 source baseline for every initiative and original commitment shown in this explorer.",
+    intro: SITE_COPY.about_lead,
     sections: [
       [
         "What this release contains",
@@ -118,7 +129,7 @@ const EN = {
       ],
       [
         "Source and data use",
-        "The Sarawak Digital Economy Blueprint 2030 remains the work of the Sarawak Government and its named publishers. This independent explorer does not redistribute or relicense the original publication. The explorer's original dataset structure, arrangement and added metadata may be reused with attribution to “SDE 2030 Blueprint Explorer by hafiy.my” and a link to sde2030.com. Source-derived wording remains subject to the rights of its original publisher. The dataset must not be represented as official or as verified current implementation status.",
+        dataUseBodyEn(),
         "data-use",
       ],
       [
@@ -239,7 +250,7 @@ const MS = {
       ],
       [
         "Sumber dan penggunaan data",
-        "Sarawak Digital Economy Blueprint 2030 kekal sebagai karya Kerajaan Sarawak dan penerbit yang dinamakan. Peneroka bebas ini tidak mengedar atau melesenkan semula penerbitan asal. Struktur, susunan dan metadata tambahan asal bagi set data peneroka boleh digunakan semula dengan atribusi kepada “SDE 2030 Blueprint Explorer by hafiy.my” serta pautan ke sde2030.com. Perkataan yang bersumberkan Blueprint kekal tertakluk pada hak penerbit asal. Set data ini tidak boleh digambarkan sebagai rasmi atau sebagai status pelaksanaan semasa yang telah disahkan.",
+        dataUseBodyMs(),
         "data-use",
       ],
       [

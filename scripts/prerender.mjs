@@ -13,6 +13,8 @@ import { pathToFileURL } from "node:url";
 
 import { build } from "vite";
 
+import { SITE_COPY } from "../src/siteCopy.js";
+
 const mode = process.argv[2] || "production";
 const projectRoot = resolve(".");
 const distIndexPath = resolve("dist/index.html");
@@ -89,6 +91,10 @@ function applyRouteMetadata(template, route, allRoutes, getStructuredData) {
     .replace(
       /\s*<meta property="og:locale" content="[^"]*" \/>\s*(?:<meta property="og:locale:alternate" content="[^"]*" \/>)?/,
       `\n${localeMarkup}`
+    )
+    .replace(
+      /<meta property="og:site_name" content="[^"]*" \/>/,
+      `<meta property="og:site_name" content="${escapeHtml(SITE_COPY.title)}" />`
     )
     .replace(
       /<meta property="og:title" content="[^"]*" \/>/,

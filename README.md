@@ -1,6 +1,6 @@
-# SDE 2030 Blueprint Explorer
+# sde2030.com static site
 
-An independent English-language explorer for the 2023 Sarawak Digital Economy Blueprint 2030.
+An independent English-language explorer for the 2023 Sarawak Digital Economy Blueprint 2030. Site title, tagline, meta description, and About lead live only in [`data/site.json`](data/site.json); the app and prerender fill every page surface from that file.
 
 **Live site:** [sde2030.com](https://sde2030.com) — agents and QA should use [`?internal=1`](https://sde2030.com/?internal=1) on production (see [AGENTS.md](AGENTS.md)).
 

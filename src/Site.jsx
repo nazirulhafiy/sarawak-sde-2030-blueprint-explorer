@@ -11,6 +11,7 @@ import {
 } from "./routes.js";
 import UpdatesPage from "./UpdatesPage.jsx";
 import { ThemeToggle } from "./SiteControls.jsx";
+import { SITE_COPY } from "./siteCopy.js";
 import { applyDocumentTheme } from "./theme.js";
 
 export default function Site({ route }) {
@@ -137,9 +138,9 @@ export default function Site({ route }) {
   const updatesRoute = activeRoute.language === "ms" ? "updates-ms" : "updates";
   const navigation = (
     <nav className={`concept-nav${navIntroDone ? " concept-nav--ready" : ""}${skipIntro ? " concept-nav--skip-intro" : ""}`} aria-label="Primary navigation" onFocusCapture={() => setNavIntroDone(true)} onAnimationEnd={(event) => { if (event.animationName === "sde-logo-enter") setNavIntroDone(true); }}>
-      <a className="concept-brand" href={getRouteHref(trackerRoute)} onClick={(event) => navigate(event, trackerRoute)} aria-label="SDE 2030 Blueprint Explorer home">
+      <a className="concept-brand" href={getRouteHref(trackerRoute)} onClick={(event) => navigate(event, trackerRoute)} aria-label={`${SITE_COPY.title} home`}>
         <img src="/favicon-production-browser.png?v=20260912b" alt="" width="32" height="32" />
-        <span className="concept-brand-name" aria-hidden="true">{Array.from("SDE 2030 Blueprint Explorer").map((letter, index) => <span className="sde-brand-letter" style={{ "--letter-index": index }} key={index}>{letter === " " ? "\u00a0" : letter}</span>)}</span>
+        <span className="concept-brand-name" aria-hidden="true">{Array.from(SITE_COPY.title).map((letter, index) => <span className="sde-brand-letter" style={{ "--letter-index": index }} key={index}>{letter === " " ? "\u00a0" : letter}</span>)}</span>
       </a>
       <div id="concept-navigation-links" className={`concept-links${menuOpen ? " concept-links--open" : ""}`}>
         <a aria-current={activeRoute.page === "tracker" ? "page" : undefined} href={getRouteHref(trackerRoute)} onClick={(event) => navigate(event, trackerRoute)}>{copy.footer.tracker}</a>
