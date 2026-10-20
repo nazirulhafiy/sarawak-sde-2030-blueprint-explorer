@@ -1,5 +1,6 @@
 import { BLUEPRINT_META, LAST_UPDATED } from "./blueprintData.js";
 import { getRouteCanonical } from "./routes.js";
+import { SITE_COPY } from "./siteCopy.js";
 
 const PRODUCTION_ORIGIN = "https://sde2030.com";
 const WEBSITE_ID = `${PRODUCTION_ORIGIN}/#website`;
@@ -26,7 +27,7 @@ const blueprintSource = {
 const website = {
   "@type": "WebSite",
   "@id": WEBSITE_ID,
-  name: "SDE 2030 Blueprint Explorer",
+  name: SITE_COPY.title,
   alternateName: "Sarawak Digital Economy Blueprint 2030 Explorer",
   url: `${PRODUCTION_ORIGIN}/`,
   description:

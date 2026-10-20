@@ -1,9 +1,13 @@
 import { getUiCopy } from "./localization.js";
+import { SITE_COPY } from "./siteCopy.js";
 const PRODUCTION_ORIGIN = "https://sde2030.com";
 const trackerAlternates = [{ hreflang: "en-MY", routeId: "tracker-en" }, { hreflang: "x-default", routeId: "tracker-en" }];
 const methodologyAlternates = [{ hreflang: "en-MY", routeId: "updates" }, { hreflang: "x-default", routeId: "updates" }];
 const trackerMetadata = getUiCopy("en").metadata;
-const methodologyMetadata = { title: "SDE 2030 Baseline & Methodology | Sarawak Development Monitor", description: "How the independent SDE 2030 Blueprint Explorer presents the original 2023 hierarchy, initiatives, targets and timelines without inferring current implementation." };
+const methodologyMetadata = {
+  title: "SDE 2030 Baseline & Methodology | Sarawak Development Monitor",
+  description: `How the independent ${SITE_COPY.title} presents the original 2023 hierarchy, initiatives, targets and timelines without inferring current implementation.`,
+};
 export const STATIC_ROUTES = [{ id: "tracker-en", page: "tracker", path: "/", language: "en", locale: "en_MY", metadata: trackerMetadata, alternates: trackerAlternates }, { id: "tracker-ms", page: "tracker", path: "/bm/", canonicalPath: "/", language: "en", locale: "en_MY", metadata: trackerMetadata, alternates: trackerAlternates }, { id: "updates", page: "updates", path: "/updates/", language: "en", locale: "en_MY", metadata: methodologyMetadata, alternates: methodologyAlternates }, { id: "updates-ms", page: "updates", path: "/bm/updates/", canonicalPath: "/updates/", language: "en", locale: "en_MY", metadata: methodologyMetadata, alternates: methodologyAlternates }];
 export function getRouteById(id) { return STATIC_ROUTES.find((route) => route.id === id) || STATIC_ROUTES[0]; }
 export function getRouteCanonical(route) { return new URL(route.canonicalPath || route.path, PRODUCTION_ORIGIN).href; }

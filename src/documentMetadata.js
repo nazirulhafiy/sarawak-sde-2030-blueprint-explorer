@@ -1,5 +1,6 @@
 import { getRouteById, getRouteCanonical } from "./routes.js";
 import { getStructuredData } from "./seo.js";
+import { SITE_COPY } from "./siteCopy.js";
 
 function setMetaContent(selector, content) {
   const element = document.querySelector(selector);
@@ -19,6 +20,7 @@ export function applyDocumentRouteMetadata(route) {
 
   setMetaContent('meta[name="description"]', route.metadata.description);
   setMetaContent('meta[property="og:locale"]', route.locale);
+  setMetaContent('meta[property="og:site_name"]', SITE_COPY.title);
   setMetaContent('meta[property="og:title"]', route.metadata.title);
   setMetaContent('meta[property="og:description"]', route.metadata.description);
   setMetaContent('meta[property="og:url"]', getRouteCanonical(route));

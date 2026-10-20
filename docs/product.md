@@ -2,7 +2,7 @@
 
 ## Product
 
-SDE 2030 Blueprint Explorer is an independent public-interest interface for the Sarawak Digital Economy Blueprint 2030.
+The sde2030.com Blueprint Explorer (canonical site title in `data/site.json`) is an independent public-interest interface for the Sarawak Digital Economy Blueprint 2030.
 
 The complete Blueprint baseline is the current product. Implementation evidence is intentionally deferred until coverage and maintenance capacity are broad enough for a separate tracking function.
 
