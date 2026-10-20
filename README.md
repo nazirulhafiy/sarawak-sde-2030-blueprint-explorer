@@ -47,7 +47,7 @@ The site has a build step.
 | `npm run build:preview` | `vite build --mode preview`, prerender, and SEO check |
 | `npm run build:production` | Vite build, prerender, `dist/CNAME` for `sde2030.com`, and SEO check |
 | `npm run check:content` | Validates the Blueprint baseline dataset |
-| `npm run check:analytics` | Validates GA bootstrap, host gating, and internal-traffic helpers |
+| `npm run check:analytics` | Validates `data/analytics.json`, generated loader, helpers, and built `dist/` HTML |
 | `npm run check:seo` | Rechecks the current `dist` output without rebuilding it |
 | `npm run lint` | Runs ESLint |
 

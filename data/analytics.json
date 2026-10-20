@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "internal_cookie": "sde2030_ga_internal",
+  "spa": true,
+  "hosts": {
+    "sde2030.com": {
+      "ga4_measurement_id": "G-B1HCKG6RX6",
+      "cf_beacon_token": "bba02bd0b70e4b3d9a1acd6390a9a4c6",
+      "aliases": ["www.sde2030.com"],
+      "legacy_internal_cookies": []
+    }
+  }
+}

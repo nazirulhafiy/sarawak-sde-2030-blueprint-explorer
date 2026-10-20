@@ -14,6 +14,8 @@ The check uses a three-dot diff from the pull request base SHA to the head SHA. 
 - `src/**/*.js`, except `src/blueprintData.js`, `src/implementationData.js`, and `src/localization.js`
 - `public/` favicons, Apple touch icons, and social preview images (`favicon*`, `apple-touch-icon*`, `social-preview*`)
 - `scripts/prerender.mjs`, `scripts/write-cname.mjs`, and `scripts/generate-environment-favicons.mjs`
+- `scripts/check-analytics.mjs`, `scripts/check-analytics-dist.mjs`, `scripts/sync-analytics-loader.mjs`, `scripts/lib/analytics-registry.mjs`, and `scripts/lib/render-analytics-loader.mjs`
+- `data/analytics.json` and generated `public/analytics-loader.js`
 - `vite.config.js`
 
 **Not watched:** the Blueprint baseline (`src/blueprintData.js`), deferred implementation evidence (`src/implementationData.js`), interface copy (`src/localization.js`), content validators, and generated `dist/`. Those pull requests are not blocked by this check.

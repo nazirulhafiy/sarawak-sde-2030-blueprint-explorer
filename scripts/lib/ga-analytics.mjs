@@ -1,13 +1,14 @@
-/** Shared GA4 behaviour constants and helpers (validated by scripts/validate-analytics.mjs). */
+/** Shared GA4 behaviour helpers (validated by scripts/check-analytics.mjs). */
 
-export const GA_MEASUREMENT_ID = "G-B1HCKG6RX6";
+import { loadRegistry } from "./analytics-registry.mjs";
 
-export const INTERNAL_COOKIE_NAME = "sde2030_ga_internal";
+const registry = loadRegistry();
 
-/** One year in seconds. */
+export const GA_MEASUREMENT_ID = registry.primaryGa4Id();
+export const INTERNAL_COOKIE_NAME = registry.internal_cookie;
 export const INTERNAL_COOKIE_MAX_AGE_SECONDS = 365 * 24 * 60 * 60;
-
-export const PRODUCTION_HOSTNAMES = new Set(["sde2030.com", "www.sde2030.com"]);
+export const PRODUCTION_HOSTNAMES = new Set(registry.hostnames);
+export const CLOUDFLARE_BEACON_SRC = "https://static.cloudflareinsights.com/beacon.min.js";
 
 export function isGaProductionHost(hostname) {
   return PRODUCTION_HOSTNAMES.has(hostname);
@@ -37,8 +38,6 @@ export function buildGtagConfig(isInternalTraffic) {
   }
   return { traffic_type: "internal" };
 }
-
-export const CLOUDFLARE_BEACON_SRC = "https://static.cloudflareinsights.com/beacon.min.js";
 
 /**
  * Cloudflare Web Analytics must not load for internal / QA traffic.

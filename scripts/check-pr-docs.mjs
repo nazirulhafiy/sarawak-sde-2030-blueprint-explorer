@@ -7,6 +7,9 @@
 // - src/**/*.js except src/blueprintData.js, src/implementationData.js, src/localization.js
 // - public/favicon*, public/apple-touch-icon*, public/social-preview*
 // - scripts/prerender.mjs, scripts/write-cname.mjs, scripts/generate-environment-favicons.mjs
+// - scripts/check-analytics.mjs, scripts/check-analytics-dist.mjs, scripts/sync-analytics-loader.mjs
+// - scripts/lib/analytics-registry.mjs, scripts/lib/render-analytics-loader.mjs
+// - data/analytics.json, public/analytics-loader.js
 // - vite.config.js
 // Not watched: Blueprint and implementation datasets, interface copy, content validators.
 
@@ -16,7 +19,10 @@ const WATCHED_PATH_TESTS = [
   /^src\/.*\.jsx$/,
   /^src\/(?!blueprintData\.js$|implementationData\.js$|localization\.js$).*\.js$/,
   /^public\/(?:favicon|apple-touch-icon|social-preview).+/,
-  /^scripts\/(?:prerender|write-cname|generate-environment-favicons)\.mjs$/,
+  /^scripts\/(?:prerender|write-cname|generate-environment-favicons|check-analytics(?:-dist)?|sync-analytics-loader)\.mjs$/,
+  /^scripts\/lib\/(?:analytics-registry|render-analytics-loader)\.mjs$/,
+  /^data\/analytics\.json$/,
+  /^public\/analytics-loader\.js$/,
   /^vite\.config\.js$/,
 ];
 

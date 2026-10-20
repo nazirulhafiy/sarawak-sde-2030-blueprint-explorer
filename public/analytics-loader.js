@@ -1,8 +1,16 @@
+/* Generated from data/analytics.json — do not edit. Run: node scripts/sync-analytics-loader.mjs */
 (function () {
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return;
+  }
   var MEASUREMENT_ID = "G-B1HCKG6RX6";
-  var COOKIE_NAME = "sde2030_ga_internal";
+  var C = "sde2030_ga_internal";
+  var L = ["sde2030_ga_internal"];
   var COOKIE_MAX_AGE = 31536000;
-  var PRODUCTION_HOSTS = { "sde2030.com": 1, "www.sde2030.com": 1 };
+  var PRODUCTION_HOSTS = {
+    "sde2030.com": 1,
+    "www.sde2030.com": 1
+  };
 
   function readCookie(name) {
     var escaped = name.replace(/[.$?*|{}()[\]\\/+^]/g, "\\$&");
@@ -34,9 +42,11 @@
       }
       var flag = params.get("internal");
       if (flag === "1" || flag === "true") {
-        writeCookie(COOKIE_NAME, "1", COOKIE_MAX_AGE);
+        writeCookie(C, "1", COOKIE_MAX_AGE);
       } else if (flag === "0" || flag === "false") {
-        clearCookie(COOKIE_NAME);
+        for (var i = 0; i < L.length; i++) {
+          clearCookie(L[i]);
+        }
       }
     } catch {
       /* Query or cookie APIs unavailable; skip internal marking. */
@@ -44,7 +54,12 @@
   }
 
   function isInternalTraffic() {
-    return readCookie(COOKIE_NAME) === "1";
+    for (var j = 0; j < L.length; j++) {
+      if (readCookie(L[j]) === "1") {
+        return true;
+      }
+    }
+    return false;
   }
 
   function isProductionHost() {
@@ -84,10 +99,7 @@
       var script = document.createElement("script");
       script.type = "module";
       script.src = "https://static.cloudflareinsights.com/beacon.min.js";
-      script.setAttribute(
-        "data-cf-beacon",
-        '{"token":"bba02bd0b70e4b3d9a1acd6390a9a4c6","spa":true}'
-      );
+      script.setAttribute("data-cf-beacon", "{\"token\":\"bba02bd0b70e4b3d9a1acd6390a9a4c6\",\"spa\":true}");
       document.body.appendChild(script);
     }
 

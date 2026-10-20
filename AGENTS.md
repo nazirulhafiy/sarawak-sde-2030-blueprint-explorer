@@ -38,7 +38,7 @@ When opening the production site for screenshots, browser QA, or cloud-agent che
 - Install dependencies with `npm ci`.
 - Run local development with `npm run dev`.
 - Run content validation with `npm run check:content`.
-- Run analytics template checks with `npm run check:analytics`.
+- Run analytics checks with `npm run check:analytics` (registry, generated loader, and `dist/` after `npm run build:production`).
 - Run linting with `npm run lint`.
 - Run the local production build with `npm run build:local`.
 - Build a preview-mode site with `npm run build:preview`.
