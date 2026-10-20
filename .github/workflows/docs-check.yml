@@ -7,6 +7,9 @@
 # - scripts/prerender.mjs
 # - scripts/write-cname.mjs
 # - scripts/generate-environment-favicons.mjs
+# - scripts/check-analytics.mjs, scripts/check-analytics-dist.mjs, scripts/sync-analytics-loader.mjs
+# - scripts/lib/analytics-registry.mjs, scripts/lib/render-analytics-loader.mjs
+# - data/analytics.json, public/analytics-loader.js
 # - vite.config.js
 # Not watched: src/blueprintData.js, src/implementationData.js, src/localization.js, content validators, generated dist/
 name: Docs check

@@ -127,8 +127,20 @@ Production is published from `main` through GitHub Pages at `sde2030.com`. Cloud
 
 ## Analytics
 
-Google Analytics 4 uses measurement ID `G-B1HCKG6RX6`. The shared template [`index.html`](../index.html) loads [`public/ga-bootstrap.js`](../public/ga-bootstrap.js) synchronously in `<head>`. That bootstrap runs on every host, but it injects `gtag.js` only when `location.hostname` is `sde2030.com` or `www.sde2030.com`. Preview hosts, GitHub Pages artifact URLs, localhost, and any other hostname never load GA.
+IDs, the internal-traffic cookie name, Cloudflare `spa`, and production hostnames live in [`data/analytics.json`](../data/analytics.json) (fleet kit shape `version: 1`). [`scripts/lib/analytics-registry.mjs`](../scripts/lib/analytics-registry.mjs) validates that file; [`scripts/sync-analytics-loader.mjs`](../scripts/sync-analytics-loader.mjs) generates a single loader at [`public/analytics-loader.js`](../public/analytics-loader.js) before each build. The shared template [`index.html`](../index.html) references that script once with `data-sn-analytics-loader` in `<head>`.
 
-Internal QA and cloud-agent traffic should not pollute public metrics. Visiting production with `?internal=1` (or `?internal=true`) sets a first-party cookie named `sde2030_ga_internal` with `Max-Age` of one year (`Path=/`, `SameSite=Lax`, and `Secure` on HTTPS). `?internal=0` or `?internal=false` clears that cookie. While the cookie value is `1`, the bootstrap passes `traffic_type: 'internal'` in the `gtag('config', …)` call. Constants and helpers live in [`scripts/lib/ga-analytics.mjs`](../scripts/lib/ga-analytics.mjs); `npm run check:analytics` validates the template and helper behaviour.
+| Field | Value |
+| --- | --- |
+| `version` | `1` |
+| `internal_cookie` | `sde2030_ga_internal` |
+| `spa` | `true` |
+| Primary host | `sde2030.com` |
+| `aliases` | `["www.sde2030.com"]` |
+| `ga4_measurement_id` | `G-B1HCKG6RX6` |
+| `cf_beacon_token` | `bba02bd0b70e4b3d9a1acd6390a9a4c6` |
 
-The Cloudflare Web Analytics beacon (`static.cloudflareinsights.com`, SPA mode) is also injected by `ga-bootstrap.js` after `DOMContentLoaded` (or immediately when `document.body` exists). It loads on all hosts for normal visitors, but it is **not** injected when the `sde2030_ga_internal` cookie is set, so internal and QA visits are excluded from Cloudflare analytics as well as tagged separately in GA4. `scripts/prerender.mjs` uses the HTML template, so every prerendered route inherits the bootstrap. The site sets no Content Security Policy; if one is added, it must allow `https://www.googletagmanager.com`, `https://*.google-analytics.com`, `https://static.cloudflareinsights.com` and `https://cloudflareinsights.com`.
+Google Analytics 4 loads only when `location.hostname` is `sde2030.com` or `www.sde2030.com`. Preview hosts, GitHub Pages artifact URLs, localhost, and any other hostname never load GA.
+
+Internal QA and cloud-agent traffic should not pollute public metrics. Visiting production with `?internal=1` (or `?internal=true`) sets a first-party cookie named `sde2030_ga_internal` with `Max-Age` of one year (`Path=/`, `SameSite=Lax`, and `Secure` on HTTPS). `?internal=0` or `?internal=false` clears that cookie (and any listed `legacy_internal_cookies` names). While the cookie value is `1`, the loader passes `traffic_type: 'internal'` in the `gtag('config', …)` call. Behaviour helpers live in [`scripts/lib/ga-analytics.mjs`](../scripts/lib/ga-analytics.mjs). `npm run check:analytics` validates the registry, generated loader, helpers, and—after `npm run build:production`—every HTML file under `dist/` via [`scripts/check-analytics-dist.mjs`](../scripts/check-analytics-dist.mjs) (exactly one `data-sn-analytics-loader`, IDs and tokens from the registry only, cookie names match the registry).
+
+The Cloudflare Web Analytics beacon (`static.cloudflareinsights.com`, SPA mode per registry) is injected by `analytics-loader.js` after `DOMContentLoaded` (or immediately when `document.body` exists). It loads on all hosts for normal visitors, but it is **not** injected when the `sde2030_ga_internal` cookie is set, so internal and QA visits are excluded from Cloudflare analytics as well as tagged separately in GA4. `scripts/prerender.mjs` uses the HTML template, so every prerendered route inherits the loader. The site sets no Content Security Policy; if one is added, it must allow `https://www.googletagmanager.com`, `https://*.google-analytics.com`, `https://static.cloudflareinsights.com` and `https://cloudflareinsights.com`.

@@ -153,7 +153,9 @@ try {
   });
 
   const outputFiles = await readdir(serverOutDir);
-  const serverEntry = outputFiles.find((file) => file.endsWith(".js"));
+  const serverEntry =
+    outputFiles.find((file) => file.startsWith("entry-server") && file.endsWith(".js")) ??
+    outputFiles.find((file) => file.endsWith(".js"));
 
   if (!serverEntry) {
     throw new Error("Prerender server entry was not generated.");
