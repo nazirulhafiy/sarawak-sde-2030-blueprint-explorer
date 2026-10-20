@@ -6,6 +6,19 @@ The public site is an English-only Vite and React explorer. `src/Site.jsx` is th
 
 `index.html` sets the first-paint theme and intro state, then `scripts/prerender.mjs` writes the static routes. Styling lives in `src/index.css`.
 
+## Site copy source of truth
+
+English site title, home tagline, meta description, and About lead are owned only by [`data/site.json`](../data/site.json) (`title`, `tagline`, `description`, `about_lead`). `src/siteCopy.js` loads that file for the app and build scripts. Do not hand-type those strings in source or docs.
+
+| Field | Surfaces |
+| --- | --- |
+| `title` | Header and footer brand, `og:site_name`, JSON-LD `WebSite.name`, nav `aria-label` |
+| `tagline` | Explorer hero intro (`copy.header.intro`) and footer note (with baseline notice) |
+| `description` | Home route `<title>` suffix pair via `SITE_DOCUMENT_TITLE`, meta / `og` / `twitter` descriptions on the tracker route |
+| `about_lead` | About (`/updates/`) page intro (`copy.methodologyPage.intro`) |
+
+`index.html` uses `__SITE_*__` placeholders for first paint; prerender and client `documentMetadata` replace them from route metadata and `siteCopy`. `npm run check:site` fails CI when canonical wording appears outside `data/site.json`.
+
 The type stack is `Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`. Inter is named in CSS and is not a self-hosted file; the browser uses it when it is installed and otherwise uses the system fallbacks.
 
 Light mode uses a white page (`#ffffff`) and SDE cobalt `#3155c6`. Dark mode uses `#121212` with brand `#8ca5ff`. Pillar accents identify Blueprint structure only:
