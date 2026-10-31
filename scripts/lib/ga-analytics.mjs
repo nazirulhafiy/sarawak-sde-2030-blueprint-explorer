@@ -19,7 +19,15 @@ export function isGaProductionHost(hostname) {
  * @returns {"set" | "clear" | null}
  */
 export function resolveInternalTrafficFromQuery(internalParam) {
-  if (internalParam === "1" || internalParam === "true") {
+  // Accept exact "1" / "true", or "1" plus one stray trailing ` . ) ]
+  if (
+    internalParam === "1" ||
+    internalParam === "true" ||
+    (typeof internalParam === "string" &&
+      internalParam.length === 2 &&
+      internalParam.charAt(0) === "1" &&
+      "`.)]".indexOf(internalParam.charAt(1)) !== -1)
+  ) {
     return "set";
   }
   if (internalParam === "0" || internalParam === "false") {

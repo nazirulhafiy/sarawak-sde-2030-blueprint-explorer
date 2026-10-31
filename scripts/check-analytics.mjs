@@ -49,6 +49,14 @@ function runUnitChecks(registry) {
   assert(resolveInternalTrafficFromQuery("0") === "clear", "?internal=0 must clear cookie.");
   assert(resolveInternalTrafficFromQuery("true") === "set", "?internal=true must set cookie.");
   assert(resolveInternalTrafficFromQuery("maybe") === null, "unknown internal flag must be ignored.");
+  assert(resolveInternalTrafficFromQuery("1`") === "set", "?internal=1` (trailing backtick) must set cookie.");
+  assert(resolveInternalTrafficFromQuery("1.") === "set", "?internal=1. must set cookie.");
+  assert(resolveInternalTrafficFromQuery("1)") === "set", "?internal=1) must set cookie.");
+  assert(resolveInternalTrafficFromQuery("1]") === "set", "?internal=1] must set cookie.");
+  assert(resolveInternalTrafficFromQuery("10") === null, "?internal=10 must be ignored.");
+  assert(resolveInternalTrafficFromQuery("1x") === null, "?internal=1x must be ignored.");
+  assert(resolveInternalTrafficFromQuery("1``") === null, "?internal=1`` (two backticks) must be ignored.");
+  assert(resolveInternalTrafficFromQuery("2") === null, "?internal=2 must be ignored.");
 
   assert(
     buildGtagConfig(true).traffic_type === "internal",
