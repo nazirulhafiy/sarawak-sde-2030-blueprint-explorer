@@ -69,7 +69,13 @@ ${hostsObject}
         return;
       }
       var flag = params.get("internal");
-      if (flag === "1" || flag === "true") {
+      if (
+        flag === "1" ||
+        flag === "true" ||
+        (flag.length === 2 &&
+          flag.charAt(0) === "1" &&
+          "\`.)]".indexOf(flag.charAt(1)) !== -1)
+      ) {
         writeCookie(C, "1", COOKIE_MAX_AGE);
       } else if (flag === "0" || flag === "false") {
         for (var i = 0; i < L.length; i++) {
