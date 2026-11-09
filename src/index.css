@@ -1711,6 +1711,13 @@ html[data-interface="v2"] .site-footer { margin-top: 70px; border-color: var(--b
 html[data-interface="v2"] .updates-main { max-width: 824px; }
 html[data-interface="v2"] .updates-main > header { padding: 80px 0 48px; border-bottom: 1px solid var(--border); text-align: left; }
 html[data-interface="v2"] .updates-title { color: var(--text-strong); font-size: clamp(36px, 5vw, 52px); font-weight: 500; line-height: 1.12; }
+/* 404 reuses updates-main; keep intro/Home flush left with the heading (not margin:auto centred). */
+html[data-interface="v2"] .not-found-main > header .explorer-intro,
+html[data-interface="v2"] .not-found-main > header .not-found-home {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
 html[data-interface="v2"] .methodology-sections { margin-top: 48px; gap: 0; }
 html[data-interface="v2"] .methodology-sections article { padding: 0 0 32px; border: 0; border-radius: 0; background: transparent; }
 html[data-interface="v2"] .methodology-sections h2 { font-size: 20px; }

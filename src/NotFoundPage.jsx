@@ -16,9 +16,13 @@ export default function NotFoundPage({
     <div
       className={`app-shell not-found-shell${returning ? " not-found-shell--returning" : ""}`}
     >
-      <main className="methodology-main not-found-main">
+      <main className="methodology-main updates-main not-found-main">
         <header className="explorer-header">
-          <h1 className="page-heading not-found-title" ref={headingRef} tabIndex={-1}>
+          <h1
+            className="page-heading updates-title not-found-title"
+            ref={headingRef}
+            tabIndex={-1}
+          >
             {copy.notFoundPage.title}
           </h1>
           <p className="explorer-intro">{copy.notFoundPage.body}</p>
