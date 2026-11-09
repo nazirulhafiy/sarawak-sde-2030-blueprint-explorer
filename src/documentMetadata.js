@@ -14,7 +14,10 @@ export function applyDocumentRouteMetadata(route) {
   document.title = route.metadata.title;
 
   const canonical = document.querySelector('link[rel="canonical"]');
-  if (canonical) {
+  if (route.page === "not-found") {
+    canonical?.remove();
+    setMetaContent('meta[name="robots"]', "noindex");
+  } else if (canonical) {
     canonical.setAttribute("href", getRouteCanonical(route));
   }
 

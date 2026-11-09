@@ -106,6 +106,13 @@ const EN = {
     skipToInitiatives: "Skip to initiatives",
     initiatives: "Blueprint initiatives",
   },
+  notFoundPage: {
+    title: "Page not found",
+    body: "The page you're looking for doesn't exist or has moved.",
+    homeLink: "Home",
+    documentTitle: `Page not found | ${SITE_COPY.title}`,
+    documentDescription: `The page you're looking for doesn't exist or has moved on the ${SITE_COPY.title}.`,
+  },
   methodologyPage: {
     back: "Blueprint explorer",
     title: "Baseline & methodology",

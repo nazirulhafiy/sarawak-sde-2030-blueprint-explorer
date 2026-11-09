@@ -5,8 +5,10 @@ import { resolve } from 'node:path';
 
 const action = process.argv[2] || 'status';
 const port = process.env.PORT || '4174';
-const host = '127.0.0.1';
+const host = process.env.PREVIEW_HOST || '127.0.0.1';
 const pidFile = resolve('.local-preview.pid');
+const distDir = resolve('dist');
+const serverScript = resolve('scripts/lib/local-preview-server.mjs');
 
 function isRunning(pid) {
   if (!pid) return false;
@@ -50,9 +52,25 @@ if (action === 'start') {
     process.exit(0);
   }
 
-  const child = spawn('npm', ['run', 'preview', '--', '--host', host, '--port', port], {
+  if (!existsSync(distDir)) {
+    console.error('dist/ is missing. Run a build before npm run preview:start.');
+    process.exit(1);
+  }
+
+  if (!existsSync(resolve(distDir, '404.html'))) {
+    console.error('dist/404.html is missing. Rebuild so the custom 404 page is generated.');
+    process.exit(1);
+  }
+
+  const child = spawn(process.execPath, [serverScript], {
     detached: true,
     stdio: 'ignore',
+    env: {
+      ...process.env,
+      PORT: String(port),
+      PREVIEW_HOST: host,
+      PREVIEW_DIST: distDir,
+    },
   });
   child.unref();
   writeFileSync(pidFile, String(child.pid));

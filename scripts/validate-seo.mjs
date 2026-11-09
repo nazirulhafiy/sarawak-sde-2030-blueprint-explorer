@@ -3,7 +3,9 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 import { LAST_UPDATED } from "../src/blueprintData.js";
+import { getUiCopy } from "../src/localization.js";
 import {
+  NOT_FOUND_ROUTE,
   STATIC_ROUTES,
   getRouteById,
   getRouteCanonical,
@@ -216,8 +218,64 @@ try {
       lastModified.every((value) => value === LAST_UPDATED),
     "sitemap.xml lastmod values do not match the dataset freshness date."
   );
+  assert(
+    !locations.some(
+      (location) =>
+        location.includes("404") || location === getRouteCanonical(NOT_FOUND_ROUTE)
+    ),
+    "sitemap.xml must not list the 404 page."
+  );
 } catch (error) {
   errors.push(`Could not validate sitemap.xml: ${error.message}`);
+}
+
+try {
+  const notFoundPath = resolve("dist/404.html");
+  const html = await readFile(notFoundPath, "utf8");
+  const heading = getUiCopy("en").notFoundPage.title;
+  const label = "not-found (404.html)";
+
+  assert(!html.includes("%MODE%"), `${label}: unresolved %MODE% placeholder.`);
+  assert(
+    getMeta(html, "name", "robots")?.content === "noindex",
+    `${label}: robots must be exactly noindex.`
+  );
+  assert(
+    [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)].some(
+      (match) => decodeHtml(match[1].replace(/<[^>]+>/g, "")).trim() === heading
+    ),
+    `${label}: missing "${heading}" heading.`
+  );
+  assert(
+    html.includes('data-sn-analytics-loader'),
+    `${label}: analytics loader include is missing.`
+  );
+  assert(
+    [...html.matchAll(/<h1\b/gi)].length === 1,
+    `${label}: expected exactly one h1.`
+  );
+
+  const localRefs = [
+    ...html.matchAll(/\b(?:href|src)=(["'])([^"']+)\1/gi),
+  ].map((match) => match[2]);
+  for (const ref of localRefs) {
+    if (
+      ref.startsWith("mailto:") ||
+      ref.startsWith("tel:") ||
+      ref.startsWith("#") ||
+      ref.startsWith("data:") ||
+      ref.startsWith("https://") ||
+      ref.startsWith("http://")
+    ) {
+      continue;
+    }
+    assert(
+      ref.startsWith("/"),
+      `${label}: non-absolute local URL ${ref} (GitHub Pages serves 404.html at nested paths).`
+    );
+  }
+} catch (error) {
+  errors.push(`Could not validate 404.html: ${error.message}`);
 }
 
 try {

@@ -56,6 +56,7 @@ The site has a build step.
 - `/` English Blueprint Explorer
 - `/updates/` English baseline and methodology note
 - `/bm/` and `/bm/updates/` legacy entry points that serve the English experience and canonicalise to the English routes
+- Unknown paths serve the custom `404.html` page (header, footer, Home link; `noindex`; not in the sitemap)
 
 ## Evidence boundary
 
