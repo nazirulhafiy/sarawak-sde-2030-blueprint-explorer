@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import BackToTop from "./BackToTop.jsx";
 import { applyDocumentRouteMetadata } from "./documentMetadata.js";
 import { getUiCopy } from "./localization.js";
+import NotFoundPage from "./NotFoundPage.jsx";
 import {
   getRouteById,
   getRouteHref,
@@ -154,6 +155,22 @@ export default function Site({ route }) {
       </div>
     </nav>
   );
+
+  if (activeRoute.page === "not-found") {
+    return (
+      <>
+        {navigation}
+        <NotFoundPage
+          copy={copy}
+          language={activeRoute.language}
+          onNavigate={navigate}
+          headingRef={pageHeadingRef}
+          returning={skipIntro}
+        />
+        <BackToTop label={copy.accessibility.backToTop} />
+      </>
+    );
+  }
 
   if (activeRoute.page === "updates") {
     return (

@@ -134,9 +134,13 @@ The public navigation is English-only. It does not show a language control
 until the BM interface has completed review. Source-derived initiative text
 remains English until reviewed translations exist.
 
+## Custom 404 page
+
+GitHub Pages serves `dist/404.html` for unknown paths, including nested URLs, so every local asset and in-page link on that file must be root-absolute (`/…`). `scripts/prerender.mjs` writes that file after the static routes: same shared shell (header, footer, theme boot, analytics loader), a single `Page not found` heading, one short explanation, and a Home link. The not-found main reuses the About page's narrow left-aligned header column so the heading, body line, and Home link share one alignment. It sets `<meta name="robots" content="noindex">`, is kept out of `STATIC_ROUTES` / `sitemap.xml`, and does not add synthetic analytics events. Unknown client paths resolve to the same not-found view so hydration matches when Pages serves `404.html` under a nested address. `npm run check:seo` asserts the file exists with that heading, `noindex`, the analytics include, absolute local URLs, and sitemap exclusion. `npm run preview:start` serves `dist/` with the same 404 fallback so nested missing paths can be checked locally.
+
 ## Environments
 
-Production is published from `main` through GitHub Pages at `sde2030.com`. Cloudflare remains the registrar and DNS provider. The Pages workflow is [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml). `scripts/write-cname.mjs` can write `preview.sde2030.com` for a preview build; a dedicated Preview workflow is not in the repository yet. Preview and development prerenders set `noindex, nofollow`. Production prerenders allow indexing.
+Production is published from `main` through GitHub Pages at `sde2030.com`. Cloudflare remains the registrar and DNS provider. The Pages workflow is [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml). `scripts/write-cname.mjs` can write `preview.sde2030.com` for a preview build; a dedicated Preview workflow is not in the repository yet. Preview and development prerenders set `noindex, nofollow`. Production prerenders allow indexing. The dedicated `404.html` page is always `noindex`, in every build mode.
 
 ## Analytics
 

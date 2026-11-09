@@ -144,6 +144,85 @@ function applyRouteMetadata(template, route, allRoutes, getStructuredData) {
   return output;
 }
 
+/** GitHub Pages serves 404.html at nested URLs; relative asset paths would break. */
+function ensureRootAbsoluteUrls(html) {
+  return html.replace(
+    /\b(href|src)=(["'])(?!\/|https?:|mailto:|tel:|#|data:)([^"']+)\2/gi,
+    (_, attr, quote, value) => `${attr}=${quote}/${value.replace(/^\.\//, "")}${quote}`
+  );
+}
+
+function applyNotFoundMetadata(template, route, getStructuredData) {
+  const title = escapeHtml(route.metadata.title);
+  const description = escapeHtml(route.metadata.description);
+  const structuredData = JSON.stringify(getStructuredData(route), null, 6)
+    .split("\n")
+    .map((line) => `      ${line}`)
+    .join("\n");
+
+  return template
+    .replace(/<html lang="[^"]*"([^>]*)>/, `<html lang="${route.language}"$1>`)
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`)
+    .replace(
+      /<meta name="description" content="[^"]*" \/>/,
+      `<meta name="description" content="${description}" />`
+    )
+    .replace(
+      /<meta name="robots" content="[^"]*" \/>/,
+      `<meta name="robots" content="noindex" />`
+    )
+    .replace(/\s*<link rel="canonical" href="[^"]*" \/>/, "")
+    .replace(
+      /\s*<meta property="og:locale" content="[^"]*" \/>\s*(?:<meta property="og:locale:alternate" content="[^"]*" \/>)?/,
+      `\n    <meta property="og:locale" content="${route.locale}" />`
+    )
+    .replace(
+      /<meta property="og:site_name" content="[^"]*" \/>/,
+      `<meta property="og:site_name" content="${escapeHtml(SITE_COPY.title)}" />`
+    )
+    .replace(
+      /<meta property="og:title" content="[^"]*" \/>/,
+      `<meta property="og:title" content="${title}" />`
+    )
+    .replace(
+      /<meta property="og:description" content="[^"]*" \/>/,
+      `<meta property="og:description" content="${description}" />`
+    )
+    .replace(/\s*<meta property="og:url" content="[^"]*" \/>/, "")
+    .replace(
+      /<meta property="og:image" content="[^"]*" \/>/,
+      `<meta property="og:image" content="${socialImage}" />`
+    )
+    .replace(
+      /<meta property="og:image:secure_url" content="[^"]*" \/>/,
+      `<meta property="og:image:secure_url" content="${socialImage}" />`
+    )
+    .replace(
+      /<meta property="og:image:alt" content="[^"]*" \/>/,
+      `<meta property="og:image:alt" content="${title}" />`
+    )
+    .replace(
+      /<meta name="twitter:title" content="[^"]*" \/>/,
+      `<meta name="twitter:title" content="${title}" />`
+    )
+    .replace(
+      /<meta name="twitter:description" content="[^"]*" \/>/,
+      `<meta name="twitter:description" content="${description}" />`
+    )
+    .replace(
+      /<meta name="twitter:image" content="[^"]*" \/>/,
+      `<meta name="twitter:image" content="${socialImage}" />`
+    )
+    .replace(
+      /<meta name="twitter:image:alt" content="[^"]*" \/>/,
+      `<meta name="twitter:image:alt" content="${title}" />`
+    )
+    .replace(
+      /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
+      `<script type="application/ld+json">\n${structuredData}\n    </script>`
+    );
+}
+
 try {
   await build({
     root: projectRoot,
@@ -167,9 +246,13 @@ try {
     throw new Error("Prerender server entry was not generated.");
   }
 
-  const { getStaticRoutes, getStructuredData, render } = await import(
-    pathToFileURL(join(serverOutDir, serverEntry)).href
-  );
+  const {
+    getStaticRoutes,
+    getNotFoundRoute,
+    getStructuredData,
+    render,
+    renderNotFound,
+  } = await import(pathToFileURL(join(serverOutDir, serverEntry)).href);
   const routes = getStaticRoutes();
   const template = await readFile(distIndexPath, "utf8");
   const rootMarker = '<div id="root"></div>';
@@ -199,6 +282,17 @@ try {
     await writeFile(outputPath, output);
     console.log(`Prerendered ${mode} ${route.path} into ${outputPath}.`);
   }
+
+  const notFoundRoute = getNotFoundRoute();
+  const notFoundHtml = ensureRootAbsoluteUrls(
+    applyNotFoundMetadata(template, notFoundRoute, getStructuredData).replace(
+      rootMarker,
+      `<div id="root">${renderNotFound()}</div>`
+    )
+  );
+  const notFoundPath = resolve("dist/404.html");
+  await writeFile(notFoundPath, notFoundHtml);
+  console.log(`Prerendered ${mode} 404 page into ${notFoundPath}.`);
 } finally {
   await rm(serverOutDir, { recursive: true, force: true });
 }

@@ -1167,6 +1167,18 @@ html[data-theme="dark"] .roadmap-filter-select {
 .methodology-main .header-controls { justify-content: flex-end; margin-bottom: 38px; }
 .methodology-main .page-heading { font-size: 48px; }
 .explorer-intro { max-width: 760px; margin: 18px 0 0; color: var(--text-muted); font-size: 16px; line-height: 1.6; }
+.not-found-home { margin: 28px 0 0; }
+.not-found-home-link {
+  color: var(--brand-strong);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--brand-strong) 45%, transparent);
+  text-underline-offset: 4px;
+}
+.not-found-home-link:hover,
+.not-found-home-link:focus-visible {
+  text-decoration-color: var(--brand-strong);
+}
 
 .methodology-sections { display: grid; gap: 12px; }
 .methodology-sections article { padding: 20px; }
@@ -1699,6 +1711,13 @@ html[data-interface="v2"] .site-footer { margin-top: 70px; border-color: var(--b
 html[data-interface="v2"] .updates-main { max-width: 824px; }
 html[data-interface="v2"] .updates-main > header { padding: 80px 0 48px; border-bottom: 1px solid var(--border); text-align: left; }
 html[data-interface="v2"] .updates-title { color: var(--text-strong); font-size: clamp(36px, 5vw, 52px); font-weight: 500; line-height: 1.12; }
+/* 404 reuses updates-main; keep intro/Home flush left with the heading (not margin:auto centred). */
+html[data-interface="v2"] .not-found-main > header .explorer-intro,
+html[data-interface="v2"] .not-found-main > header .not-found-home {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
 html[data-interface="v2"] .methodology-sections { margin-top: 48px; gap: 0; }
 html[data-interface="v2"] .methodology-sections article { padding: 0 0 32px; border: 0; border-radius: 0; background: transparent; }
 html[data-interface="v2"] .methodology-sections h2 { font-size: 20px; }
