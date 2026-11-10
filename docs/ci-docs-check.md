@@ -1,6 +1,11 @@
 # CI: Docs check for UI and build changes
 
-Pull requests run the **Docs check** workflow (`.github/workflows/docs-check.yml`) on `opened`, `synchronize`, `reopened`, `labeled`, and `unlabeled` events. The job name is `docs-check`.
+Pull requests run the **Docs check** workflow (`.github/workflows/docs-check.yml`) on `opened`, `synchronize`, `reopened`, `labeled`, and `unlabeled` events.
+
+Two jobs:
+
+- **`docs-check`** — the required check (job name unchanged). Read-only token (`contents: read`, `pull-requests: read`). Checks out the pull request with `persist-credentials: false`, then runs `scripts/check-pr-docs.mjs`. It never receives `issues: write`, so PR-head scripts cannot create or edit issues or labels with the job token.
+- **`ensure-no-docs-needed-label`** — creates the `no-docs-needed` label if missing. This is the only job with `issues: write`. It does not check out the repository or run repository scripts.
 
 ## What it enforces
 
@@ -22,7 +27,7 @@ The check uses a three-dot diff from the pull request base SHA to the head SHA. 
 
 ## Escape hatch
 
-Add the GitHub label **`no-docs-needed`** when the pull request touches watched files but genuinely needs no documentation update. The workflow creates this label in the repository if it is missing.
+Add the GitHub label **`no-docs-needed`** when the pull request touches watched files but genuinely needs no documentation update. The `ensure-no-docs-needed-label` job creates this label in the repository if it is missing.
 
 Use the label only for changes that truly need no docs.
 
