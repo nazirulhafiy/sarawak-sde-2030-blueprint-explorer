@@ -4,7 +4,9 @@
 
 The public site is an English-only Vite and React explorer. `src/Site.jsx` is the shell: sticky navigation, theme control, mobile menu, and client-side route changes. `src/App.jsx` is the Blueprint explorer (summary, filters, initiative cards). `src/UpdatesPage.jsx` is the baseline and methodology page. `src/SiteFooter.jsx` and `src/BackToTop.jsx` appear on both routes. `src/SiteControls.jsx` supplies the pillar pill, theme toggle, and environment badge. `LanguageToggle` exists in that file and is not mounted.
 
-`index.html` sets the first-paint theme and intro state, then `scripts/prerender.mjs` writes the static routes. Styling lives in `src/index.css`.
+`index.html` sets the first-paint theme and intro state and reserves the compact
+navbar layout in critical CSS, then `scripts/prerender.mjs` writes the static routes.
+Styling lives in `src/index.css`.
 
 ## Site copy source of truth
 
@@ -46,6 +48,11 @@ The interface now uses the PCDS V2 visual system as its reference: a compact
 sticky navigation bar, SDE cobalt-blue accent colour, centred explorer hero, bordered
 summary band, rounded cards, and a responsive menu. This is an interface port.
 It does not import PCDS data, wording, or status claims.
+
+The primary navbar (`concept-nav` / `concept-nav--ready`) paints in its compact ready
+state on first paint with no load or brand-entrance animation. Logo, Explorer /
+About links, and theme utilities are visible immediately. Hero and page content
+entrances remain as documented under Motion refinement.
 
 ## Information hierarchy
 
@@ -108,13 +115,14 @@ remove this gap. Dark-mode neutral text colours match PCDS; SDE retains blue
 accents. Timeline marks use the PCDS icon colour, without implying completion.
 
 The head script selects the first-visit or return-visit state before paint.
-Use the live pcds2030.com motion settings, not a shortened alternative.
-The logo entrance takes 2200ms after a 300ms delay. The title uses the same
-four-word cycle, with SDE words: Pillars, Actions, Initiatives, Explorer.
-Words start 1400ms apart; letters start 28ms apart. Copy, date, summary,
+Critical CSS in `index.html` reserves the compact navbar so the logo and utilities
+are not hidden before the main stylesheet loads. The explorer introduction still
+uses the live pcds2030.com motion settings, not a shortened alternative.
+The title uses the four-word cycle with SDE words: Pillars, Actions, Initiatives,
+Explorer. Words start 1400ms apart; letters start 28ms apart. Copy, date, summary,
 filters, cards, and footer start at 300, 380, 460, 560, 660, and 740ms.
-Return visits skip the logo and word cycle, with an 800ms title entrance
-and section delays of 120, 180, 180, 260, 340, and 340ms.
+Return visits skip the word cycle, with an 800ms title entrance and section delays
+of 120, 180, 180, 260, 340, and 340ms.
 The summary starts its 1.4-second count with its entrance.
 Reduced motion skips decorative transitions.
 

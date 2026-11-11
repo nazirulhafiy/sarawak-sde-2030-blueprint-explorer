@@ -18,7 +18,7 @@ import { applyDocumentTheme } from "./theme.js";
 export default function Site({ route }) {
   const [activeRoute, setActiveRoute] = useState(route);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [navIntroDone, setNavIntroDone] = useState(false);
+  const [navIntroDone, setNavIntroDone] = useState(true);
   const [skipIntro, setSkipIntro] = useState(false);
   const introChecked = useRef(false);
   const menuButtonRef = useRef(null);
@@ -40,7 +40,6 @@ export default function Site({ route }) {
     try {
       if (document.documentElement.dataset.load === "returning") {
         queueMicrotask(() => {
-          setNavIntroDone(true);
           setSkipIntro(true);
         });
       }
@@ -138,7 +137,7 @@ export default function Site({ route }) {
   const trackerRoute = activeRoute.language === "ms" ? "tracker-ms" : "tracker-en";
   const updatesRoute = activeRoute.language === "ms" ? "updates-ms" : "updates";
   const navigation = (
-    <nav className={`concept-nav${navIntroDone ? " concept-nav--ready" : ""}${skipIntro ? " concept-nav--skip-intro" : ""}`} aria-label="Primary navigation" onFocusCapture={() => setNavIntroDone(true)} onAnimationEnd={(event) => { if (event.animationName === "sde-logo-enter") setNavIntroDone(true); }}>
+    <nav className={`concept-nav${navIntroDone ? " concept-nav--ready" : ""}${skipIntro ? " concept-nav--skip-intro" : ""}`} aria-label="Primary navigation">
       <a className="concept-brand" href={getRouteHref(trackerRoute)} onClick={(event) => navigate(event, trackerRoute)} aria-label={`${SITE_COPY.title} home`}>
         <img src="/favicon-production-browser.png?v=20260912b" alt="" width="32" height="32" />
         <span className="concept-brand-name" aria-hidden="true">{Array.from(SITE_COPY.title).map((letter, index) => <span className="sde-brand-letter" style={{ "--letter-index": index }} key={index}>{letter === " " ? "\u00a0" : letter}</span>)}</span>
