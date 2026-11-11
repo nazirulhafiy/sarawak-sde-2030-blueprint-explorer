@@ -1440,17 +1440,6 @@ body:has(.environment-badge) .back-to-top {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html[data-interface="v2"] .concept-nav:not(.concept-nav--ready) .concept-brand {
-    animation: sde-brand-contract 1800ms cubic-bezier(.65, 0, .25, 1) 180ms both;
-  }
-  html[data-interface="v2"] .concept-nav:not(.concept-nav--ready) .concept-brand-name {
-    animation: sde-brand-name-exit 1800ms linear 180ms both;
-  }
-  html[data-interface="v2"] .concept-nav:not(.concept-nav--ready) .concept-brand img {
-    animation: sde-logo-enter 1800ms cubic-bezier(.22, 1, .36, 1) 180ms both;
-  }
-  html[data-interface="v2"] .concept-nav:not(.concept-nav--ready) > :not(.concept-brand) { animation: sde-nav-enter 300ms ease-out both; }
-  html[data-interface="v2"] .concept-nav:not(.concept-nav--ready) + .tracker-shell :is(.tracker-title, .tracker-description, .tracker-last-updated, .tracker-summary-stage, .discovery-controls, .initiatives-section, .site-footer) { opacity: 0; visibility: hidden; }
   html[data-interface="v2"] .tracker-shell--intro-ready .tracker-title { animation: sde-title-enter 600ms cubic-bezier(.22, 1, .36, 1) both; }
   html[data-interface="v2"] .tracker-shell--intro-ready .tracker-description { animation: sde-copy-enter 580ms cubic-bezier(.22, 1, .36, 1) 180ms both; }
   html[data-interface="v2"] .tracker-shell--intro-ready .tracker-last-updated { animation: sde-section-enter 580ms cubic-bezier(.22, 1, .36, 1) 250ms both; }
@@ -1464,31 +1453,14 @@ body:has(.environment-badge) .back-to-top {
   html[data-interface="v2"] .updates-shell--returning .methodology-sections { animation: sde-section-enter 620ms cubic-bezier(.22, 1, .36, 1) 180ms both; }
 }
 
-@keyframes sde-brand-contract {
-  0%, 60% { flex-basis: 258px; }
-  100% { flex-basis: 32px; }
-}
-@keyframes sde-brand-name-exit {
-  0%, 60% { opacity: 1; transform: none; }
-  100% { opacity: 0; transform: translateX(-32px) scale(.86); visibility: hidden; }
-}
-@keyframes sde-logo-enter {
-  0%, 60% { opacity: 0; clip-path: inset(0 100% 0 0); filter: hue-rotate(80deg); }
-  82% { opacity: 1; filter: hue-rotate(160deg); }
-  100% { opacity: 1; clip-path: inset(0); filter: none; }
-}
-@keyframes sde-nav-enter { from { opacity: 0; visibility: hidden; } to { opacity: 1; visibility: visible; } }
 @keyframes sde-title-enter { from { opacity: 0; visibility: hidden; transform: translateY(18px) rotateX(-12deg); } to { opacity: 1; visibility: visible; transform: none; } }
 @keyframes sde-copy-enter { from { opacity: 0; visibility: hidden; transform: translateY(18px); } to { opacity: 1; visibility: visible; transform: none; } }
 @keyframes sde-section-enter { from { opacity: 0; visibility: hidden; transform: translateY(26px); } to { opacity: 1; visibility: visible; transform: none; } }
 
+/* Compact navbar paints ready immediately; no load/entrance transition. */
 html[data-interface="v2"] .concept-nav--ready .concept-brand { flex-basis: 32px; }
 html[data-interface="v2"] .concept-nav--ready .concept-brand-name { display: none; }
 html[data-interface="v2"] .concept-nav--ready .concept-brand img { opacity: 1; clip-path: none; filter: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  html[data-interface="v2"] .concept-nav:not(.concept-nav--ready) + .tracker-shell :is(.tracker-title, .tracker-description, .tracker-last-updated, .tracker-summary-stage, .discovery-controls, .initiatives-section, .site-footer) { opacity: 1; visibility: visible; }
-}
 
 @media (hover: none) and (pointer: coarse) {
   .initiative-search input { font-size: 16px; }
@@ -1539,10 +1511,6 @@ html[data-interface="v2"] .concept-nav--ready .concept-brand img { opacity: 1; c
 .sde-details-inner { min-height:0; overflow:hidden; }
 .initiative-card[data-expanded="true"] .sde-details-reveal { grid-template-rows:1fr; opacity:1; visibility:visible; }
 @media (prefers-reduced-motion:no-preference) {
-  html[data-interface="v2"] .concept-nav:not(.concept-nav--ready) .concept-brand,
-  html[data-interface="v2"] .concept-nav:not(.concept-nav--ready) .concept-brand-name,
-  html[data-interface="v2"] .concept-nav:not(.concept-nav--ready) .concept-brand img { animation-duration:2200ms; animation-delay:300ms; }
-  .concept-nav:not(.concept-nav--ready) .sde-brand-letter { animation:sde-letter-fold 700ms cubic-bezier(.65,0,.25,1) calc(1730ms + var(--letter-index) * 3ms) both; }
   .tracker-shell:not(.tracker-shell--returning) .sde-cycle-word { opacity:1; }
   .tracker-shell:not(.tracker-shell--returning) .sde-cycle-letter { opacity:0; }
   .tracker-shell--intro-ready:not(.tracker-shell--returning) .sde-cycle-letter { animation:sde-letter-cycle 1400ms linear calc(var(--word-start) + var(--letter-delay)) both; }
@@ -1556,7 +1524,6 @@ html[data-interface="v2"] .concept-nav--ready .concept-brand img { opacity: 1; c
   html[data-interface="v2"] .tracker-shell--returning .discovery-controls { animation-delay:260ms; }
   html[data-interface="v2"] .tracker-shell--returning .initiatives-section { animation-delay:340ms; }
 }
-@keyframes sde-letter-fold { from { opacity:1; transform:none; } to { opacity:0; transform:translateX(calc(var(--letter-index) * -7px)) translateY(-3px) rotateY(85deg) scale(.3); } }
 @keyframes sde-letter-cycle { 0% { opacity:0; transform:translateY(5px); filter:blur(4px); } 23%,80% { opacity:1; transform:none; filter:none; } 100% { opacity:0; transform:translateY(-3px); filter:blur(4px); } }
 @keyframes sde-letter-settle { from { opacity:0; transform:translateY(5px); filter:blur(4px); } to { opacity:1; transform:none; filter:none; } }
 @media (prefers-reduced-motion:reduce) { .sde-details-reveal { transition:none; } }
@@ -1750,19 +1717,15 @@ html[data-interface="v2"] .methodology-sections p { max-width: 780px; font-size:
 }
 
 /* Load state is selected in the head, before prerendered content is painted. */
-html[data-load="returning"] .concept-nav .concept-brand {
-  flex-basis: 32px;
-  animation: none !important;
-}
+html[data-load="returning"] .concept-nav .concept-brand { flex-basis: 32px; }
 html[data-load="returning"] .concept-brand-name { display: none; }
 html[data-load="returning"] .concept-nav .concept-brand img {
-  opacity: 1; clip-path: none; filter: none; animation: none !important;
+  opacity: 1; clip-path: none; filter: none;
 }
 html[data-interface="v2"][data-load="returning"] .concept-nav + .tracker-shell :is(.tracker-title, .tracker-description, .tracker-last-updated, .tracker-summary-stage, .discovery-controls, .initiatives-section, .site-footer) {
   visibility: visible;
   opacity: 1;
 }
-/* Match the live PCDS load sequence; keep the pre-paint return state above. */
 .concept-brand { position: relative; min-width: 0; }
 html[data-interface="v2"] .concept-brand-name { position: absolute; left: 0; margin-left: 0; }
 .sde-title-prefix, .sde-word-slot { display: inline-block; }
@@ -1782,22 +1745,8 @@ html[data-interface="v2"] .concept-brand-name { position: absolute; left: 0; mar
   html[data-interface="v2"] .tracker-shell--returning .tracker-title { animation: sde-return-enter 800ms cubic-bezier(.22,1,.36,1) both; }
   html[data-interface="v2"][data-load="returning"] .tracker-shell:not(.tracker-shell--intro-ready) :is(.tracker-title, .tracker-description, .tracker-last-updated, .tracker-summary-stage, .discovery-controls, .initiatives-section, .site-footer) { opacity: 0; }
 }
-@keyframes sde-brand-contract { 0%,65% { flex-basis:230px; } 100% { flex-basis:32px; } }
-@keyframes sde-brand-name-exit {
-  0% { opacity:0; visibility:visible; transform:none; }
-  15%,65% { opacity:1; visibility:visible; transform:none; }
-  100% { opacity:0; visibility:hidden; transform:none; }
-}
-@keyframes sde-logo-enter {
-  0%,65% { opacity:0; clip-path:inset(0 100% 0 0); transform:none; filter:hue-rotate(80deg); }
-  83% { opacity:1; filter:hue-rotate(160deg); }
-  100% { opacity:1; clip-path:inset(0); transform:none; filter:none; }
-}
 @keyframes sde-copy-enter { from { opacity:0; visibility:hidden; transform:translateY(20px); } to { opacity:1; visibility:visible; transform:none; } }
 @keyframes sde-section-enter { from { opacity:0; visibility:hidden; transform:translateY(30px); } to { opacity:1; visibility:visible; transform:none; } }
 @keyframes sde-word-enter { from { opacity:0; transform:translateY(42%) rotateX(-28deg) scale(.96); filter:blur(2px); } to { opacity:1; transform:none; filter:none; } }
 @keyframes sde-underline-enter { from { opacity:0; transform:scaleX(0); } to { opacity:1; transform:scaleX(1); } }
 @keyframes sde-return-enter { from { opacity:0; translate:0 16px; } to { opacity:1; translate:0 0; } }
-@media (max-width:760px) {
-  @keyframes sde-brand-contract { 0%,65% { flex-basis:min(200px, calc(100vw - 140px)); } 100% { flex-basis:32px; } }
-}
