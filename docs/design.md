@@ -53,6 +53,10 @@ sticky navigation bar, SDE cobalt-blue accent colour, centred explorer hero, bor
 summary band, rounded cards, and a responsive menu. This is an interface port.
 It does not import PCDS data, wording, or status claims.
 
+Hero description paragraphs in `.tracker-description` share one font size (17px
+desktop, 16px at 760px and below). The second paragraph keeps only its top margin;
+it does not use a smaller font-size override.
+
 The primary navbar (`concept-nav` / `concept-nav--ready`) paints in its compact ready
 state on first paint with no load or brand-entrance animation. Logo, Explorer /
 About links, and theme utilities are visible immediately. Hero and page content
