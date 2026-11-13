@@ -23,7 +23,7 @@ const productionOrigin = "https://sde2030.com";
 const socialOrigin =
   mode === "preview" ? "https://preview.sde2030.com" : productionOrigin;
 const socialMode = mode === "preview" || mode === "production" ? mode : "development";
-const socialImage = `${socialOrigin}/social-preview-${socialMode}.png?v=20260810a`;
+const socialImage = `${socialOrigin}/social-preview-${socialMode}.png?v=20261113a`;
 
 function escapeHtml(value) {
   return value

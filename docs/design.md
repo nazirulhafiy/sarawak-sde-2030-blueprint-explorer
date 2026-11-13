@@ -42,6 +42,10 @@ The source is archived in `assets/brand/pcds-mark-source.png`; the favicon
 generator preserves its alpha mask and applies the environment colour.
 Environment icon colours remain distinct. Do not replace the mark with a square.
 
+## Social preview
+
+Production Open Graph and Twitter card images use `public/social-preview-production.png` (1200×630 PNG). `index.html` and `scripts/prerender.mjs` point `og:image`, `og:image:secure_url`, and `twitter:image` at that file with a `?v=` cache-buster (`20261113a` for the approved blue card). Keep `og:image:type` as `image/png` and dimensions `1200`×`630`. Preview and development builds keep their own `social-preview-*.png` assets.
+
 Retain the proven PCDS tracker shell while changing the content model from project delivery to Blueprint exploration. The site should feel like a companion within the Sarawak Development Monitor family, but it must have its own SDE 2030 identity and avoid implying government affiliation.
 
 The interface now uses the PCDS V2 visual system as its reference: a compact
